@@ -24,7 +24,7 @@ task :create_symlink do
       backup!(symlink_path)
       symlink(file_path, symlink_path)
     rescue Errno::EEXIST
-      puts "Already exists: ~/#{filename}"
+      puts "!!! Already exists: ~/#{filename}"
     end
   end
 end
@@ -37,7 +37,7 @@ namespace :package do
     end
 
     brew_dir = File.expand_path(".linuxbrew", "~")
-    sh %(git clone https://github.con/linuxbrew/brew.git #{brew_dir}), verbose: true do |ok, status|
+    sh %(git clone https://github.com/linuxbrew/brew.git #{brew_dir}), verbose: true do |ok, status|
       if ok
         envs = [
           %(# linuxbrew),
@@ -47,10 +47,32 @@ namespace :package do
         ]
         export_environment(envs)
       else
-        puts "Can not linuxbrew setup!!"
+        puts "!!! Can not linuxbrew setup"
         next
       end
     end
+  end
+
+  # brew setup
+  task :brionac do
+    sh "type brew 2> /dev/nul" do |ok, status|
+      next unless ok
+
+      [
+        %(brew tap b4b4r07/brionac),
+        %(brew install brionac),
+      ].each {|command| sh %(#{command}) }
+
+      sh %(type brionac 2> /dev/nul) do |ok, status|
+        unless ok
+          puts "!!! Can not brew sub-tool setup"
+          next
+        end
+
+        sh %(brionac attack), verbose: true
+      end
+    end
+
   end
 end
 
@@ -64,7 +86,7 @@ end
 def export_environment(environments=[])
   env_file = File.expand_path('shell/export.sh')
   if File.exists?(env_file)
-    File.open(env_file, "write") do |f|
+    File.open(env_file) do |f|
       f.puts environments.join("\n")
     end
 
