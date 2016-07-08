@@ -1,7 +1,7 @@
 # vim: filetype=ruby
 require 'fileutils'
 
-IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell)
+IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell test)
 WORKSPACE_=File.expand_path("workspace", "~")
 
 task :install => [:initialize, :create_symlink, "package:linuxbrew"]
