@@ -32,47 +32,32 @@ end
 namespace :package do
   # iunstall linuxbrew
   task :linuxbrew do
-    sh "type brew 2> /dev/nul" do |ok, status|
+    sh "type brew 2> /dev/null" do |ok, status|
       next if ok
     end
 
     brew_dir = File.expand_path(".linuxbrew", "~")
     sh %(git clone https://github.com/linuxbrew/brew.git #{brew_dir}), verbose: true do |ok, status|
-      if ok
-        envs = [
-          %(# linuxbrew),
-          %(export PATH="$HOME/.linuxbrew/bin:$PATH"),
-          %(export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"),
-          %(export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH")
-        ]
-        export_environment(envs)
-      else
+      unless ok
         puts "!!! Can not linuxbrew setup"
         next
       end
     end
   end
+end
 
-  # brew setup
-  task :brionac do
-    sh "type brew 2> /dev/nul" do |ok, status|
-      next unless ok
+namespace :setup do
+  task :linuxbrew do
+    Rake::Task["package:linuxbrew"].invoke
 
-      [
-        %(brew tap b4b4r07/brionac),
-        %(brew install brionac),
-      ].each {|command| sh %(#{command}) }
-
-      sh %(type brionac 2> /dev/nul) do |ok, status|
-        unless ok
-          puts "!!! Can not brew sub-tool setup"
-          next
-        end
-
-        sh %(brionac attack), verbose: true
-      end
+    [
+      "tmux",
+      "git",
+      "tig",
+      "go"
+    ].each do |formula|
+      sh %(brew install #{formula}), verbose:true
     end
-
   end
 end
 
@@ -80,16 +65,6 @@ def backup!(fullpath)
   if File.exists?(fullpath)
     FileUtils.cp_r(fullpath, "%s_" % fullpath, preserve: true, verbose: true)
     FileUtils.rm_r(fullpath)
-  end
-end
-
-def export_environment(environments=[])
-  env_file = File.expand_path('shell/export.sh')
-  environments << nil
-
-  if File.exists?(env_file)
-    File.write(env_file, environments.join("\n"))
-    sh "source #{env_file}", verbos: true
   end
 end
 
