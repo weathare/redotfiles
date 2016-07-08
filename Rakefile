@@ -85,11 +85,10 @@ end
 
 def export_environment(environments=[])
   env_file = File.expand_path('shell/export.sh')
-  if File.exists?(env_file)
-    File.open(env_file) do |f|
-      f.puts environments.join("\n")
-    end
+  environments << nil
 
+  if File.exists?(env_file)
+    File.write(env_file, environments.join("\n"))
     sh "source #{env_file}", verbos: true
   end
 end
