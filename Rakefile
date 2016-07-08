@@ -2,15 +2,14 @@
 require 'fileutils'
 
 IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell test)
+LOCAL_BIN_=File.expand_path("bin", "~")
 WORKSPACE_=File.expand_path("workspace", "~")
-SHELL_=ENV['SHELL'].split("/")[1]
 
-task :install => [:initialize, :create_symlink, "package:linuxbrew"]
+task :install => [:initialize, :create_symlink, "package:install"]
+task :uninstall => ["package:remove"]
 
 task :initialize do
-  user_bin = File.expand_path("bin", "~")
-
-  FileUtils.mkdir_p(user_bin)
+  FileUtils.mkdir_p(LOCAL_BIN_)
   FileUtils.mkdir_p(WORKSPACE_)
 end
 
@@ -31,9 +30,11 @@ task :create_symlink do
 end
 
 namespace :package do
+  task :install => ["package:linuxbrew", "package:go", "package:enhancd"]
+
   # iunstall linuxbrew
   task :linuxbrew do
-    sh "type brew 2> /dev/null" do |ok, status|
+    sh %(type brew 2> /dev/null) do |ok, _|
       next if ok
     end
 
@@ -53,6 +54,9 @@ namespace :package do
       git
       tig
       go
+      python3
+      perl
+      vim
     }.each do |formula|
       sh %(brew install #{formula}), verbose:true
     end
@@ -64,16 +68,18 @@ namespace :package do
       github.com/motemen/ghq
       github.com/peco/peco/cmd/peco
       github.com/b4b4r07/gch
-    }.echo do |package|
+    }.each do |package|
       sh %(go get #{package}), verbose: true
     end
   end
 
   # depended peco
   task :enhancd do
-    sh "type peco 2>/dev/null" {|ok, _| next unless ok }
+    sh %(type peco 2> /dev/null) do |ok, _|
+      next unless ok
+    end
 
-    enhancd_dir = File.expand_path("bin/enhancd", "~")
+    enhancd_dir = File.expand_path("enhancd", LOCAL_BIN_)
     repository = "https://github.com/b4b4r07/enhancd"
     sh %(git clone #{repository} #{enhancd_dir}), verbose: true do |ok, _|
       unless ok
@@ -81,7 +87,18 @@ namespace :package do
         next
       end
 
-      sh "#{SHELL_} #{enhancd_dir}/init.sh", verbose: true
+      puts "You try: source #{enhancd_dir}/init.sh"
+    end
+  end
+
+  # installed packages delete!
+  task :remove do
+    [
+      File.expand_path(".linuxbrew", "~"),
+      File.expand_path("go", WORKSPACE_),
+      File.expand_path("enhancd", LOCAL_BIN_)
+    ].each do |path|
+      FileUtils.remove_entry_secure(path)
     end
   end
 end
