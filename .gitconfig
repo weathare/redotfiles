@@ -1,0 +1,73 @@
+[include]
+  path = ~/.git.local
+[core]
+  excludesfile = ~/.gitignore
+  editor = vim
+[alias]
+  alias = !"if test -z $1; then loop=; for k in `git config --get-regexp ^alias\\. | sort | sed -e 's/^alias\\.\\(\\S*\\).*/\\1/g'`; do echo -n $k; loop="${loop}1"; if test ${#loop} -lt 5; then echo -n '\t'; else echo; loop=; fi; done; exit; fi; git config --list | grep ^alias\\.$1= | sed -e s/^alias\\.//; exit;"
+  aliass = !git config --get-regexp alias
+  me = !git config --get-regexp user
+  p = push
+  # st = status
+  st = status --short --branch
+  sh = show
+  so = remote show origin
+  ft = fetch
+  up = pull --rebase
+  rb = rebase
+  rbi = rebase -i
+  ad = add -A
+  ca = commit -a
+  caa = commit -a --amend
+  ci = commit -m
+  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
+  wip = "!f () { git add -A . && git commit -m \"WIP $1\"; }; f"
+  co = checkout
+# for branch
+  br = branch             # originも含めたすべてのbranchを表示
+  ba = branch -a
+  bm = branch --merge     # merge済みbranchを表示
+  bn = branch --no-merge  # mergeしてないbranchを
+# for log
+  ls = log --stat         # logに変更されたファイルも一緒に出す
+  lp = log -p             # diffも一緒に出す
+  lr = log origin
+  lo = log --pretty=oneline --stat # logに変更されたファイルも一緒に出す
+  la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
+  lg = log --graph --all --date=short --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  copy-hash = !"git log --graph --pretty=format:'%d %an: %s %ar %h' | peco | awk -F ' ' '{ print $NF }'"
+# for diff
+  dm = diff master        # masterとのdiff
+  dw = diff --color-words # wordごとに色つきdiff
+  dc = diff --cached      # addされているものとdiff
+  d1 = diff HEAD~
+  d2 = diff HEAD~~
+  d3 = diff HEAD~~~
+  d4 = diff HEAD~~~~
+  d5 = diff HEAD~~~~~
+  d10 = diff HEAD^10
+# for merge
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+# for grep
+  gr = grep
+  gn = grep -n
+[color]
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+[credential]
+# helper = cache --timeout=300
+[iniit]
+  templatedir = ~/.git_template
+[push]
+  default = matching
+[credential]
+  helper = store
+[http]
+  sslVerify = false
+[ghq]
+  root = ~/workspace/go/src
+
