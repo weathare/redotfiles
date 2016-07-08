@@ -3,6 +3,7 @@ require 'fileutils'
 
 IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell test)
 WORKSPACE_=File.expand_path("workspace", "~")
+SHELL_=ENV['SHELL'].split("/")[1]
 
 task :install => [:initialize, :create_symlink, "package:linuxbrew"]
 
@@ -37,26 +38,50 @@ namespace :package do
     end
 
     brew_dir = File.expand_path(".linuxbrew", "~")
-    sh %(git clone https://github.com/linuxbrew/brew.git #{brew_dir}), verbose: true do |ok, status|
+    sh %(ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"), verbose: true do |ok, _|
       unless ok
         puts "!!! Can not linuxbrew setup"
         next
       end
     end
   end
-end
 
-namespace :setup do
-  task :linuxbrew do
-    Rake::Task["package:linuxbrew"].invoke
-
-    [
-      "tmux",
-      "git",
-      "tig",
-      "go"
-    ].each do |formula|
+  # packages with linuxbrew
+  task :formula do
+    %w{
+      tmux
+      git
+      tig
+      go
+    }.each do |formula|
       sh %(brew install #{formula}), verbose:true
+    end
+  end
+
+  # go packages
+  task :go do
+    %w{
+      github.com/motemen/ghq
+      github.com/peco/peco/cmd/peco
+      github.com/b4b4r07/gch
+    }.echo do |package|
+      sh %(go get #{package}), verbose: true
+    end
+  end
+
+  # depended peco
+  task :enhancd do
+    sh "type peco 2>/dev/null" {|ok, _| next unless ok }
+
+    enhancd_dir = File.expand_path("bin/enhancd", "~")
+    repository = "https://github.com/b4b4r07/enhancd"
+    sh %(git clone #{repository} #{enhancd_dir}), verbose: true do |ok, _|
+      unless ok
+        puts "!!! Not compleated b4b4r07/enhancd setup, check repository issue: #{repository}"
+        next
+      end
+
+      sh "#{SHELL_} #{enhancd_dir}/init.sh", verbose: true
     end
   end
 end

@@ -3,9 +3,9 @@ export GIT_EDITOR=vim
 export VISUAL=vim
 
 # linux brew
-export PATH="/home/weathare/.linuxbrew/bin:$PATH"
-export MANPATH="/home/weathare/.linuxbrew/share/man:$MANPATH:"
-export INFOPATH="/home/weathare/.linuxbrew/share/info:$INFOPATH:"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH:"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH:"
 
 # golang
 export GOPATH="$HOME/workspace/go"
