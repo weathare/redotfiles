@@ -94,7 +94,13 @@ namespace :package do
     end
   end
 
-  # installed packages delete!
+  desc " ... neovim with python and perl"
+  task :neovim do
+    sh %(brew tap neovim/neovim/neovim) do |ok, _|
+      sh %(brew install neovim), verbos: true
+    end
+  end
+
   desc "Installed packages delete!"
   task :remove do
     [
