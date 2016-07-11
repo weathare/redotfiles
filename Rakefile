@@ -8,11 +8,13 @@ WORKSPACE_=File.expand_path("workspace", "~")
 task :install => [:initialize, :create_symlink, "package:install"]
 task :uninstall => ["package:remove"]
 
+desc "作業ディレクトリを作成"
 task :initialize do
   FileUtils.mkdir_p(LOCAL_BIN_)
   FileUtils.mkdir_p(WORKSPACE_)
 end
 
+desc "ホームディレクトリ以下にdotfilesのSymlinkを張る"
 task :create_symlink do
   Dir.foreach(".") do |filename|
     next if IGNORE_FILE_.include?(filename)
@@ -29,10 +31,11 @@ task :create_symlink do
   end
 end
 
+desc "Install some packages!!"
 namespace :package do
   task :install => ["package:linuxbrew", "package:go", "package:enhancd"]
 
-  # iunstall linuxbrew
+  desc " ... linuxbrew"
   task :linuxbrew do
     sh %(type brew 2> /dev/null) do |ok, _|
       next if ok
@@ -47,7 +50,7 @@ namespace :package do
     end
   end
 
-  # packages with linuxbrew
+  desc " ... formula with linuxbrew"
   task :formula do
     %w{
       tmux
@@ -62,7 +65,7 @@ namespace :package do
     end
   end
 
-  # go packages
+  desc " ... go"
   task :go do
     %w{
       github.com/motemen/ghq
@@ -73,7 +76,7 @@ namespace :package do
     end
   end
 
-  # depended peco
+  desc " ... peco depended go"
   task :enhancd do
     sh %(type peco 2> /dev/null) do |ok, _|
       next unless ok
@@ -92,6 +95,7 @@ namespace :package do
   end
 
   # installed packages delete!
+  desc "Installed packages delete!"
   task :remove do
     [
       File.expand_path(".linuxbrew", "~"),
