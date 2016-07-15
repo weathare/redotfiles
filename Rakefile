@@ -38,6 +38,16 @@ desc "Install some packages!!"
 namespace :package do
   task :install => ["package:linuxbrew", "package:go", "package:enhancd"]
 
+  desc " ... apt-get"
+  task :apt do
+    %w{
+      libtool
+      vim.nox
+    }.each do |package|
+      sh %w(sudo apt-get install -y #{package}), verbose: true
+    end
+  end
+
   desc " ... linuxbrew"
   task :linuxbrew do
     sh %(type brew 2> /dev/null) do |ok, _|
