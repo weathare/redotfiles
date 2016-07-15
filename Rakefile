@@ -25,6 +25,9 @@ task :create_symlink do
     begin
       backup!(symlink_path)
       symlink(file_path, symlink_path)
+
+      profile = Fite.expand_path(".bash_profile", "~")
+      puts "You try: source #{profile}"
     rescue Errno::EEXIST
       puts "!!! Already exists: ~/#{filename}"
     end
@@ -96,9 +99,7 @@ namespace :package do
 
   desc " ... neovim with python and perl"
   task :neovim do
-    sh %(brew tap neovim/neovim/neovim) do |ok, _|
-      sh %(brew install neovim), verbos: true
-    end
+    sh %(brew install neovim/neovim/neovim), verbos: true
   end
 
   desc "Installed packages delete!"
