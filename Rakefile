@@ -99,7 +99,7 @@ namespace :package do
 
   desc " ... neovim with python and perl"
   task :neovim do
-    sh %(brew install neovim/neovim/neovim), verbos: true
+    sh %(brew install neovim/neovim/neovim), verbose: true
   end
 
   desc "Installed packages delete!"
