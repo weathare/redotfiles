@@ -66,6 +66,11 @@ namespace :package do
     }.each do |formula|
       sh %(brew install #{formula}), verbose:true
     end
+
+    # setup pip
+    sh %(type python3) do |ok, _|
+      sh %(pip3 install --upgrade pip setuptools), verbose: true
+    end
   end
 
   desc " ... go"
