@@ -26,7 +26,7 @@ task :create_symlink do
       backup!(symlink_path)
       symlink(file_path, symlink_path)
 
-      profile = Fite.expand_path(".bash_profile", "~")
+      profile = File.expand_path(".bash_profile", "~")
       puts "You try: source #{profile}"
     rescue Errno::EEXIST
       puts "!!! Already exists: ~/#{filename}"
@@ -36,16 +36,35 @@ end
 
 desc "Install some packages!!"
 namespace :package do
-  task :install => ["package:linuxbrew", "package:go", "package:enhancd"]
+  desc "基本セットアップ"
+  task :install => ["package:linuxbrew", "package:formula", "package:go", "package:enhancd"]
+  desc "OSサードパーティ系セットアップ"
+  task :apt_update => ["package:apt", "package:add_apt"]
 
   desc " ... apt-get"
   task :apt do
     %w{
+      software-properties-common
+      python-software-properties
       libtool
       vim.nox
     }.each do |package|
       sh %w(sudo apt-get install -y #{package}), verbose: true
     end
+  end
+
+  desc " ... aptサードパーティを追加"
+  task :add_apt do
+    %w{
+      ppa:git-core/ppa
+      ppa:ubuntu-lxc/lxd-stable
+      ppa:pi-rho/dev
+      ppa:webupd8team/java
+    }.each do |repository|
+      sh %w(sudo add-apt-repository #{repository}), verbose: true
+    end
+
+    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
   end
 
   desc " ... linuxbrew"
