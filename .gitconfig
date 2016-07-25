@@ -17,7 +17,7 @@
   rb = rebase
   rbi = rebase -i
   ad = add -A
-  ca = commit -a
+  ca = commit -a -m
   caa = commit -a --amend
   ci = commit -m
   cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
