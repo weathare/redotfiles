@@ -113,7 +113,7 @@ namespace :package do
     end
   end
 
-  desc " ... peco depended go"
+  desc " ... enhancd depended peco"
   task :enhancd do
     sh %(type peco 2> /dev/null) do |ok, _|
       next unless ok
@@ -134,6 +134,24 @@ namespace :package do
   desc " ... neovim with python and perl"
   task :neovim do
     sh %(brew install neovim/neovim/neovim), verbose: true
+  end
+
+  desc " ... extra scripts"
+  task :extra_bin do
+    %w{
+      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
+    }.each do |script|
+      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
+      unless File.exists?(setting_path)
+        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
+          if ok
+            File.chmod(0755, setting_path)
+          else
+            puts "!!! Not Completed download and setting: #{scripts}"
+          end
+        end
+      end
+    end
   end
 
   desc "Installed packages delete!"
