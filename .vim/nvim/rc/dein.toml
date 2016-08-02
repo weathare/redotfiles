@@ -19,12 +19,11 @@ on_source = 'unite.vim'
 repo = 'osyo-manga/unite-filetype'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-hook_source = 'source ~/.vim/nvim/rc/unite.rc.vim'
-
-[[plugins]]
 repo = 'sorah/unite-ghq'
 on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'basyura/unite-rails'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -46,6 +45,9 @@ nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 '''
 
+# -------------------------------------
+# Color
+#
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
@@ -71,11 +73,8 @@ vmap  <C-_> <plug>(caw:hatpos:toggle)
 repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
-if = "has('nvim')"
-on_i = 1
-hook_add = 'let g:deoplete#enable_at_startup = 1'
+repo = 'Shougo/neosnippet-snippets'
+
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -89,6 +88,7 @@ on_ft = 'json'
 repo = 'zchee/deoplete-go'
 build = 'make'
 on_ft = 'go'
+depends = 'deoplete.vim'
 hook_post_update = '''
 let g:deoplete#sources#go#focode_binady = $GOPATH . '/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']

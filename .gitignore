@@ -1,6 +1,8 @@
 .git.local
 .env
 *_
+.init.vim-rplugin~             
+
 
 # Added from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
 *~

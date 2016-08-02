@@ -19,6 +19,29 @@ nnoremap  <silent>  [unite]b  :<C-u>Unite<Space>bookmark<CR>
 call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
 " ブックマーク追加
 nnoremap  <F11> :UniteBookmarkAdd
+
+" Rails ------------------------------- {{{
+" ... model
+nnoremap  <silent>  <Leader>rm  :<C-u>Unite rails/model<CR>
+" ... view
+nnoremap  <silent>  <Leader>rv  :<C-u>Unite rails/view<CR>
+" ... helper
+nnoremap  <silent>  <Leader>rh  :<C-u>Unite rails/helper<CR>
+" ... controller
+nnoremap  <silent>  <Leader>rc  :<C-u>Unite rails/controller<CR>
+" ... lib
+nnoremap  <silent>  <Leader>rl  :<C-u>Unite rails/lib<CR>
+" ... db
+nnoremap  <silent>  <Leader>rd  :<C-u>Unite rails/db<CR>
+" ... config
+nnoremap  <silent>  <Leader>rc  :<C-u>Unite rails/config<CR>
+" ... log
+nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
+" ... log
+nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
+" }}}
+
+
 call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
 call unite#set_profile('default', 'context', {'ignorecase':1})
 
