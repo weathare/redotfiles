@@ -1,5 +1,5 @@
 " -------------------------------------
-" Color:
+" Color: & status line
 " -------------------------------------
 
 set showcmd
@@ -10,7 +10,8 @@ let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+      \   'right': [ ['lineinfo', 'syntastic'] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -20,7 +21,8 @@ let g:lightline = {
       \   'fileformat': 'LightLineFileformat',
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
-      \   'mode': 'LightLineMode'
+      \   'mode': 'LightLineMode',
+      \   'syntastic': 'SyntasticStatuslineFlag',
       \ },
       \}
 

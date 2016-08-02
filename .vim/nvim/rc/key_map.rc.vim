@@ -38,6 +38,6 @@ inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
-" deinプラグんのアップデート
+" deinアップデート
 cnoremap deinup :call dein#update()<CR>
 

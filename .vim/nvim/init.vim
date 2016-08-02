@@ -59,3 +59,5 @@ execute 'source $XDG_CONFIG_HOME/nvim/rc/edit.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/view.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/key_map.rc.vim'
 
+" deinアップデート
+cnoremap deinup :call dein#update()<CR>

@@ -20,24 +20,28 @@ call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
 " ブックマーク追加
 nnoremap  <F11> :UniteBookmarkAdd
 
+" Go ---------------------------------- {{{
+nnoremap  <silent>  <Leader>ug  :<C-u>Unite ghq<CR>
+" }}}
+
 " Rails ------------------------------- {{{
-" ... model
+" model
 nnoremap  <silent>  <Leader>rm  :<C-u>Unite rails/model<CR>
-" ... view
+" view
 nnoremap  <silent>  <Leader>rv  :<C-u>Unite rails/view<CR>
-" ... helper
+" helper
 nnoremap  <silent>  <Leader>rh  :<C-u>Unite rails/helper<CR>
-" ... controller
+" controller
 nnoremap  <silent>  <Leader>rc  :<C-u>Unite rails/controller<CR>
-" ... lib
+" lib
 nnoremap  <silent>  <Leader>rl  :<C-u>Unite rails/lib<CR>
-" ... db
+" db
 nnoremap  <silent>  <Leader>rd  :<C-u>Unite rails/db<CR>
-" ... config
-nnoremap  <silent>  <Leader>rc  :<C-u>Unite rails/config<CR>
-" ... log
+" config
+nnoremap  <silent>  <Leader>rf  :<C-u>Unite rails/config<CR>
+" log
 nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
-" ... log
+" log
 nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
 " }}}
 

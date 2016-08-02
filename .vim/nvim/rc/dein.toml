@@ -23,9 +23,6 @@ repo = 'sorah/unite-ghq'
 on_source = 'unite.vim'
 
 [[plugins]]
-repo = 'basyura/unite-rails'
-
-[[plugins]]
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 hook_source = 'source ~/.vim/nvim/rc/vimfiler.rc.vim'
@@ -85,6 +82,18 @@ repo = 'elzr/vim-json'
 on_ft = 'json'
 
 [[plugins]]
+repo = 'scrooloose/syntastic'
+on_i = 1
+hook_add = '''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['go', 'ruby']}
+let g:syntastic_ruby_checkers = ['rubocop']
+'''
+
+[[plugins]]
 repo = 'zchee/deoplete-go'
 build = 'make'
 on_ft = 'go'
@@ -119,6 +128,28 @@ autocmd FileType go nmap <Space>gm <Plug>(go-implements)
 [[plugins]]
 repo = 'vim-jp/vim-go-extra'
 on_ft = 'go'
+
+[[plugins]]
+repo = 'basyura/unite-rails'
+
+[[plugins]]
+repo = 'itmammoth/run-rspec.vim'
+on_ft = "rb"
+hook_add = '''
+nnoremap ,rs :RunSpec<CR>
+nnoremap ,rl :RunSpecLine<CR>
+nnoremap ,re :RunSpecLastRun<CR>
+nnoremap ,rc :RunSpecCloseResult<CR>
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:deoplete#sources#omni#input_patterns = {
+    \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+    \ }
+'''
 
 # -------------------------------------
 # Operators
