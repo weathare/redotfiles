@@ -41,19 +41,21 @@ namespace :package do
   desc "OSサードパーティ系セットアップ"
   task :apt_update => ["package:apt", "package:add_apt"]
 
-  desc " ... apt-get"
+  desc " ... apt-getパッケージ(brewの前に実行すると幸せになるよ)"
   task :apt do
     %w{
       software-properties-common
       python-software-properties
       libtool
+      unzip
+      liblua5.2-dev
       vim.nox
     }.each do |package|
       sh %w(sudo apt-get install -y #{package}), verbose: true
     end
   end
 
-  desc " ... aptサードパーティを追加"
+  desc " ... aptサードパーティリポジトリを追加"
   task :add_apt do
     %w{
       ppa:git-core/ppa
