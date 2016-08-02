@@ -59,7 +59,7 @@ namespace :package do
       liblua5.2-dev
       vim.nox
     }.each do |package|
-      sh %w(sudo apt-get install -y #{package}), verbose: true
+      sh %(sudo apt-get install -y #{package}), verbose: true
     end
   end
 
@@ -71,7 +71,7 @@ namespace :package do
       ppa:pi-rho/dev
       ppa:webupd8team/java
     }.each do |repository|
-      sh %w(sudo add-apt-repository #{repository}), verbose: true
+      sh %(sudo add-apt-repository #{repository}), verbose: true
     end
 
     sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
