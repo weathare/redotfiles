@@ -1,7 +1,11 @@
 .git.local
 .env
 *_
-.init.vim-rplugin~             
+
+
+# nvim + dein
+.init.vim-rplugin~
+.vim/dein
 
 
 # Added from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
