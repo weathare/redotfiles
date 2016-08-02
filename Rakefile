@@ -1,18 +1,20 @@
 # vim: filetype=ruby
 require 'fileutils'
 
-IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell test)
+IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md shell test ruby rbenv_setup.sh)
 LOCAL_BIN_=File.expand_path("bin", "~")
 WORKSPACE_=File.expand_path("workspace", "~")
 
 task :install => [:initialize, :create_symlink, "package:install"]
 task :uninstall => ["package:remove"]
 
+desc "作業ディレクトリを作成"
 task :initialize do
   FileUtils.mkdir_p(LOCAL_BIN_)
   FileUtils.mkdir_p(WORKSPACE_)
 end
 
+desc "ホームディレクトリ以下にdotfilesのSymlinkを張る"
 task :create_symlink do
   Dir.foreach(".") do |filename|
     next if IGNORE_FILE_.include?(filename)
@@ -23,16 +25,51 @@ task :create_symlink do
     begin
       backup!(symlink_path)
       symlink(file_path, symlink_path)
+
+      profile = File.expand_path(".bash_profile", "~")
+      puts "You try: source #{profile}"
     rescue Errno::EEXIST
       puts "!!! Already exists: ~/#{filename}"
     end
   end
 end
 
+desc "Install some packages!!"
 namespace :package do
-  task :install => ["package:linuxbrew", "package:go", "package:enhancd"]
+  desc "基本セットアップ"
+  task :install => ["package:linuxbrew", "package:formula", "package:go", "package:enhancd"]
+  desc "OSサードパーティ系セットアップ"
+  task :apt_update => ["package:apt", "package:add_apt"]
 
-  # iunstall linuxbrew
+  desc " ... apt-getパッケージ(brewの前に実行すると幸せになるよ)"
+  task :apt do
+    %w{
+      software-properties-common
+      python-software-properties
+      libtool
+      unzip
+      liblua5.2-dev
+      vim.nox
+    }.each do |package|
+      sh %w(sudo apt-get install -y #{package}), verbose: true
+    end
+  end
+
+  desc " ... aptサードパーティリポジトリを追加"
+  task :add_apt do
+    %w{
+      ppa:git-core/ppa
+      ppa:ubuntu-lxc/lxd-stable
+      ppa:pi-rho/dev
+      ppa:webupd8team/java
+    }.each do |repository|
+      sh %w(sudo add-apt-repository #{repository}), verbose: true
+    end
+
+    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
+  end
+
+  desc " ... linuxbrew"
   task :linuxbrew do
     sh %(type brew 2> /dev/null) do |ok, _|
       next if ok
@@ -47,7 +84,7 @@ namespace :package do
     end
   end
 
-  # packages with linuxbrew
+  desc " ... formula with linuxbrew"
   task :formula do
     %w{
       tmux
@@ -60,9 +97,14 @@ namespace :package do
     }.each do |formula|
       sh %(brew install #{formula}), verbose:true
     end
+
+    # setup pip
+    sh %(type python3) do |ok, _|
+      sh %(pip3 install --upgrade pip setuptools), verbose: true
+    end
   end
 
-  # go packages
+  desc " ... go"
   task :go do
     %w{
       github.com/motemen/ghq
@@ -73,7 +115,7 @@ namespace :package do
     end
   end
 
-  # depended peco
+  desc " ... enhancd depended peco"
   task :enhancd do
     sh %(type peco 2> /dev/null) do |ok, _|
       next unless ok
@@ -91,7 +133,30 @@ namespace :package do
     end
   end
 
-  # installed packages delete!
+  desc " ... neovim with python and perl"
+  task :neovim do
+    sh %(brew install neovim/neovim/neovim), verbose: true
+  end
+
+  desc " ... extra scripts"
+  task :extra_bin do
+    %w{
+      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
+    }.each do |script|
+      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
+      unless File.exists?(setting_path)
+        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
+          if ok
+            File.chmod(0755, setting_path)
+          else
+            puts "!!! Not Completed download and setting: #{scripts}"
+          end
+        end
+      end
+    end
+  end
+
+  desc "Installed packages delete!"
   task :remove do
     [
       File.expand_path(".linuxbrew", "~"),
