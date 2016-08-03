@@ -24,6 +24,10 @@ set cpoptions-=m
 set matchtime=3
 set matchpairs+=<:>
 
+" 編集行表示
+set cursorline
+hi clear CursorLine
+
 " 作業ファイル
 set noswapfile
 set nowritebackup
