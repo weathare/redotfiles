@@ -2,6 +2,12 @@
 .env
 *_
 
+
+# nvim + dein
+.init.vim-rplugin~
+.vim/dein
+
+
 # Added from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
 *~
 .fuse_hidden*

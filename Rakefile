@@ -5,8 +5,12 @@ IGNORE_FILE_=%w(. .. .git .bundle vendor Rakefile Gemfile Gemfile.lock README.md
 LOCAL_BIN_=File.expand_path("bin", "~")
 WORKSPACE_=File.expand_path("workspace", "~")
 
-task :install => [:initialize, :create_symlink, "package:install"]
+desc "インストール"
+task :install => [:initialize, :create_symlink, "package:apt_update", "package:install", "package:nvim_setup"]
+
+desc "アンインストール"
 task :uninstall => ["package:remove"]
+
 
 desc "作業ディレクトリを作成"
 task :initialize do
@@ -38,8 +42,12 @@ desc "Install some packages!!"
 namespace :package do
   desc "基本セットアップ"
   task :install => ["package:linuxbrew", "package:formula", "package:go", "package:enhancd"]
+
   desc "OSサードパーティ系セットアップ"
   task :apt_update => ["package:apt", "package:add_apt"]
+
+  desc "NeoVimセットアップ"
+  task :nvim_setup => ["package:pyenv", "package:neovim"]
 
   desc " ... apt-getパッケージ(brewの前に実行すると幸せになるよ)"
   task :apt do
@@ -51,7 +59,7 @@ namespace :package do
       liblua5.2-dev
       vim.nox
     }.each do |package|
-      sh %w(sudo apt-get install -y #{package}), verbose: true
+      sh %(sudo apt-get install -y #{package}), verbose: true
     end
   end
 
@@ -63,7 +71,7 @@ namespace :package do
       ppa:pi-rho/dev
       ppa:webupd8team/java
     }.each do |repository|
-      sh %w(sudo add-apt-repository #{repository}), verbose: true
+      sh %(sudo add-apt-repository #{repository}), verbose: true
     end
 
     sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
@@ -91,20 +99,34 @@ namespace :package do
       git
       tig
       go
-      python3
       perl
+      pyenv
       vim
     }.each do |formula|
-      sh %(brew install #{formula}), verbose:true
-    end
-
-    # setup pip
-    sh %(type python3) do |ok, _|
-      sh %(pip3 install --upgrade pip setuptools), verbose: true
+      sh %(brew install #{formula}), verbose: true
     end
   end
 
-  desc " ... go"
+  desc " ... setup pyenv & pip"
+  task :pyenv do
+    sh %(type pyenv 2> /dev/null) do |ok, _|
+      unless ok
+        puts "!!! Will not install Python. Please try again: brew install pyenv"
+        next
+      end
+    end
+
+    sh %(pyenv install 3.5.1), verbose: true do |ok, _|
+      [
+        "pyenv global 3.5.1",
+        "pip install --upgrade pip setuptools"
+      ].each do |command|
+        sh command, verbose: true
+      end
+    end
+  end
+
+  desc " ... install go package"
   task :go do
     %w{
       github.com/motemen/ghq
