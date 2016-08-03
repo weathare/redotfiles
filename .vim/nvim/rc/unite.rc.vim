@@ -41,8 +41,6 @@ nnoremap  <silent>  <Leader>rd  :<C-u>Unite rails/db<CR>
 nnoremap  <silent>  <Leader>rf  :<C-u>Unite rails/config<CR>
 " log
 nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
-" log
-nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
 " }}}
 
 
@@ -56,6 +54,6 @@ au FileType unite imap <silent> <buffer> <expr> ev unite#do_action('vsplit')
 au FileType unite nmap <silent> <buffer> <ESC><ESC> q
 au FileType unite imap <silent> <buffer> <ESC><ESC> <ESC>q
 
-au FileType unite imap <silent> <buffer> <expr> <Leader>fe unite#smart_map('fe', unite#do_action('vimfiler'))
-au FileType unite nmap <silent> <buffer> <expr> <Leader>fe unite#smart_map('fe', unite#do_action('vimfiler'))
+au FileType unite imap <silent> <buffer> <expr> <Leader>fi unite#smart_map('fi', unite#do_action('vimfiler'))
+au FileType unite nmap <silent> <buffer> <expr> <Leader>fi unite#smart_map('fi', unite#do_action('vimfiler'))
 
