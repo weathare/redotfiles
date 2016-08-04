@@ -15,6 +15,9 @@ export PATH="$GOPATH/bin:$HOME/.linuxbrew/opt/go/libexec/bin:$PATH"
 export PYENV_ROOT="$HOME/.linuxbrew/var/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+# nodebrew
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+
 # neovim
 export XDG_CONFIG_HOME="$HOME/.vim"
 

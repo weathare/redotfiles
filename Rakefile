@@ -101,6 +101,7 @@ namespace :package do
       go
       perl
       pyenv
+      nodebrew
       vim
     }.each do |formula|
       sh %(brew install #{formula}), verbose: true
@@ -125,6 +126,7 @@ namespace :package do
       end
     end
   end
+
 
   desc " ... install go package"
   task :go do
@@ -190,6 +192,29 @@ namespace :package do
   end
 end
 
+namespace :nodejs do
+  desc "Node.jsセットアップ"
+  task :setup => ["nodejs:nodebrew", "nodejs:npm"]
+
+  task :nodebrew do |task|
+    next unless installed?(task.name.bottom)
+
+    versions = %w(v4.x latest)
+
+    versions.each do |version|
+      sh %(nodebrew install-binary #{version}), verbose: true do |ok, _|
+        next unless ok
+      end
+    end
+
+    sh %(nodebrew use #{versions.last})
+  end
+
+  task :npm do
+    sh %(npm update -g npm), verbose: true
+  end
+end
+
 def backup!(fullpath)
   if File.exists?(fullpath)
     FileUtils.cp_r(fullpath, "%s_" % fullpath, preserve: true, verbose: true)
@@ -197,3 +222,14 @@ def backup!(fullpath)
   end
 end
 
+def installed?(package)
+  status = sh %(type #{package} 2> /dev/null) do |ok, _|
+    ok
+  end
+end
+
+class String
+  def bottom
+    self.split(':').last
+  end
+end
