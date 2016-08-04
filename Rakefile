@@ -101,7 +101,6 @@ namespace :package do
       go
       perl
       pyenv
-      nodebrew
       vim
     }.each do |formula|
       sh %(brew install #{formula}), verbose: true
@@ -194,11 +193,15 @@ end
 
 namespace :nodejs do
   desc "Node.jsセットアップ"
-  task :setup => ["nodejs:nodebrew", "nodejs:npm"]
+  task :setup => ["nodejs:nodebrew", "nodejs:version", "nodejs:npm"]
 
   task :nodebrew do |task|
-    next unless installed?(task.name.bottom)
+    unless installed?(task.name.bottom)
+      sh %(curl -L git.io/nodebrew | perl - setup), verbose: true
+    end
+  end
 
+  task :version do
     versions = %w(v4.x latest)
 
     versions.each do |version|
