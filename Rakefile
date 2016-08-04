@@ -210,6 +210,7 @@ namespace :nodejs do
       end
     end
 
+    # versionsの最後に定義したnode.jsバージョンを使用する
     sh %(nodebrew use #{versions.last})
   end
 
