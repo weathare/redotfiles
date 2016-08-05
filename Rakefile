@@ -38,45 +38,7 @@ task :create_symlink do
   end
 end
 
-desc "Install some packages!!"
 namespace :package do
-  desc "基本セットアップ"
-  task :install => ["package:linuxbrew", "package:formula", "package:go", "package:enhancd"]
-
-  desc "OSサードパーティ系セットアップ"
-  task :apt_update => ["package:apt", "package:add_apt"]
-
-  desc "NeoVimセットアップ"
-  task :nvim_setup => ["package:pyenv", "package:neovim"]
-
-  desc " ... apt-getパッケージ(brewの前に実行すると幸せになるよ)"
-  task :apt do
-    %w{
-      software-properties-common
-      python-software-properties
-      libtool
-      unzip
-      liblua5.2-dev
-      vim.nox
-    }.each do |package|
-      sh %(sudo apt-get install -y #{package}), verbose: true
-    end
-  end
-
-  desc " ... aptサードパーティリポジトリを追加"
-  task :add_apt do
-    %w{
-      ppa:git-core/ppa
-      ppa:ubuntu-lxc/lxd-stable
-      ppa:pi-rho/dev
-      ppa:webupd8team/java
-    }.each do |repository|
-      sh %(sudo add-apt-repository #{repository}), verbose: true
-    end
-
-    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
-  end
-
   desc " ... setup pyenv & pip"
   task :pyenv do
     sh %(type pyenv 2> /dev/null) do |ok, _|
@@ -128,6 +90,41 @@ namespace :package do
     ].each do |path|
       FileUtils.remove_entry_secure(path)
     end
+  end
+end
+
+namespace :apt do
+  desc "aptパッケージセットアップ"
+  task :setup => ["apt:get", "apt:add_repository", "apt:update"]
+
+  # apt-getパッケージ(brewの前に実行すると幸せになるよ)
+  task :get do
+    %w{
+      software-properties-common
+      python-software-properties
+      libtool
+      unzip
+      liblua5.2-dev
+      vim.nox
+    }.each do |package|
+      sh %(sudo apt-get install -y #{package}), verbose: true
+    end
+  end
+
+  #  aptサードパーティリポジトリを追加
+  task :add_repository do
+    %w{
+      ppa:git-core/ppa
+      ppa:ubuntu-lxc/lxd-stable
+      ppa:pi-rho/dev
+      ppa:webupd8team/java
+    }.each do |repository|
+      sh %(sudo add-apt-repository #{repository}), verbose: true
+    end
+  end
+
+  task :update do
+    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
   end
 end
 
