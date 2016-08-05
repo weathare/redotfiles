@@ -126,36 +126,6 @@ namespace :package do
     end
   end
 
-
-  desc " ... install go package"
-  task :go do
-    %w{
-      github.com/motemen/ghq
-      github.com/peco/peco/cmd/peco
-      github.com/b4b4r07/gch
-    }.each do |package|
-      sh %(go get #{package}), verbose: true
-    end
-  end
-
-  desc " ... enhancd depended peco"
-  task :enhancd do
-    sh %(type peco 2> /dev/null) do |ok, _|
-      next unless ok
-    end
-
-    enhancd_dir = File.expand_path("enhancd", LOCAL_BIN_)
-    repository = "https://github.com/b4b4r07/enhancd"
-    sh %(git clone #{repository} #{enhancd_dir}), verbose: true do |ok, _|
-      unless ok
-        puts "!!! Not compleated b4b4r07/enhancd setup, check repository issue: #{repository}"
-        next
-      end
-
-      puts "You try: source #{enhancd_dir}/init.sh"
-    end
-  end
-
   desc " ... neovim with python and perl"
   task :neovim do
     sh %(brew install neovim/neovim/neovim), verbose: true
@@ -187,6 +157,45 @@ namespace :package do
       File.expand_path("enhancd", LOCAL_BIN_)
     ].each do |path|
       FileUtils.remove_entry_secure(path)
+    end
+  end
+end
+
+namespace :go do
+  desc "Golangセットアップ"
+  task :setup => ["go:package", "go:enhancd"]
+
+  task :package do
+    unless installed?('go')
+      puts "!!! Will not install Go. Please try again: brew install go"
+    end
+
+    %w{
+      github.com/motemen/ghq
+      github.com/peco/peco/cmd/peco
+      github.com/b4b4r07/gch
+    }.each do |package|
+      sh %(go get #{package}), verbose: true do |ok, _|
+        next unless ok
+      end
+    end
+  end
+
+  # depended peco
+  task :enhancd do
+    sh %(type peco 2> /dev/null) do |ok, _|
+      next unless ok
+    end
+
+    enhancd_dir = File.expand_path("enhancd", LOCAL_BIN_)
+    repository = "https://github.com/b4b4r07/enhancd"
+    sh %(git clone #{repository} #{enhancd_dir}), verbose: true do |ok, _|
+      unless ok
+        puts "!!! Not compleated b4b4r07/enhancd setup, check repository issue: #{repository}"
+        next
+      end
+
+      puts "You try: source #{enhancd_dir}/init.sh"
     end
   end
 end
