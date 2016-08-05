@@ -126,6 +126,7 @@ namespace :package do
     end
   end
 
+
   desc " ... install go package"
   task :go do
     %w{
@@ -190,6 +191,34 @@ namespace :package do
   end
 end
 
+namespace :nodejs do
+  desc "Node.jsセットアップ"
+  task :setup => ["nodejs:nodebrew", "nodejs:version", "nodejs:npm"]
+
+  task :nodebrew do |task|
+    unless installed?(task.name.bottom)
+      sh %(curl -L git.io/nodebrew | perl - setup), verbose: true
+    end
+  end
+
+  task :version do
+    versions = %w(v4.x latest)
+
+    versions.each do |version|
+      sh %(nodebrew install-binary #{version}), verbose: true do |ok, _|
+        next unless ok
+      end
+    end
+
+    # versionsの最後に定義したnode.jsバージョンを使用する
+    sh %(nodebrew use #{versions.last})
+  end
+
+  task :npm do
+    sh %(npm update -g npm), verbose: true
+  end
+end
+
 def backup!(fullpath)
   if File.exists?(fullpath)
     FileUtils.cp_r(fullpath, "%s_" % fullpath, preserve: true, verbose: true)
@@ -197,3 +226,14 @@ def backup!(fullpath)
   end
 end
 
+def installed?(package)
+  status = sh %(type #{package} 2> /dev/null) do |ok, _|
+    ok
+  end
+end
+
+class String
+  def bottom
+    self.split(':').last
+  end
+end
