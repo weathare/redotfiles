@@ -77,36 +77,6 @@ namespace :package do
     sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
   end
 
-  desc " ... linuxbrew"
-  task :linuxbrew do
-    sh %(type brew 2> /dev/null) do |ok, _|
-      next if ok
-    end
-
-    brew_dir = File.expand_path(".linuxbrew", "~")
-    sh %(ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"), verbose: true do |ok, _|
-      unless ok
-        puts "!!! Can not linuxbrew setup"
-        next
-      end
-    end
-  end
-
-  desc " ... formula with linuxbrew"
-  task :formula do
-    %w{
-      tmux
-      git
-      tig
-      go
-      perl
-      pyenv
-      vim
-    }.each do |formula|
-      sh %(brew install #{formula}), verbose: true
-    end
-  end
-
   desc " ... setup pyenv & pip"
   task :pyenv do
     sh %(type pyenv 2> /dev/null) do |ok, _|
@@ -157,6 +127,37 @@ namespace :package do
       File.expand_path("enhancd", LOCAL_BIN_)
     ].each do |path|
       FileUtils.remove_entry_secure(path)
+    end
+  end
+end
+
+namespace :brew do
+  desc "brewセットアップ"
+  task :setup => ["brew:linuxbrew", "brew:formula"]
+
+  task :linuxbrew do |task|
+    next if installed?(task.name.top)
+
+    brew_dir = File.expand_path(".linuxbrew", "~")
+    sh %(ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"), verbose: true do |ok, _|
+      unless ok
+        puts "!!! Can not linuxbrew setup"
+        next
+      end
+    end
+  end
+
+  task :formula do
+    %w{
+      tmux
+      git
+      tig
+      go
+      perl
+      pyenv
+      vim
+    }.each do |formula|
+      sh %(brew install #{formula}), verbose: true
     end
   end
 end
@@ -244,5 +245,9 @@ end
 class String
   def bottom
     self.split(':').last
+  end
+
+  def top
+    self.split(':').first
   end
 end
