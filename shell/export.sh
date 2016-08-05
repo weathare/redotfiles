@@ -2,6 +2,10 @@
 export GIT_EDITOR=vim
 export VISUAL=vim
 
+# rbenv
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+
 # linux brew
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH:"
@@ -23,10 +27,4 @@ export XDG_CONFIG_HOME="$HOME/.vim"
 
 # enhancd
 source "$HOME/bin/enhancd/init.sh"
-
-# rbenv
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
-
-export XDG_CONFIG_HOME=$HOME/.vim
 
