@@ -6,7 +6,13 @@ LOCAL_BIN_=File.expand_path("bin", "~")
 WORKSPACE_=File.expand_path("workspace", "~")
 
 desc "インストール"
-task :install => [:initialize, :create_symlink, "package:apt_update", "package:install", "package:nvim_setup"]
+task :install => [
+  :initialize, :create_symlink,
+  "apt:setup", "brew:setup",
+  "python:setup", "nodejs:setup", "go:setup",
+  "neovim:setup",
+  "package:extra_bin"
+]
 
 desc "アンインストール"
 task :uninstall => ["package:remove"]
@@ -34,37 +40,6 @@ task :create_symlink do
       puts "You try: source #{profile}"
     rescue Errno::EEXIST
       puts "!!! Already exists: ~/#{filename}"
-    end
-  end
-end
-
-namespace :package do
-  desc " ... extra scripts"
-  task :extra_bin do
-    %w{
-      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
-    }.each do |script|
-      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
-      unless File.exists?(setting_path)
-        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
-          if ok
-            File.chmod(0755, setting_path)
-          else
-            puts "!!! Not Completed download and setting: #{scripts}"
-          end
-        end
-      end
-    end
-  end
-
-  desc "Installed packages delete!"
-  task :remove do
-    [
-      File.expand_path(".linuxbrew", "~"),
-      File.expand_path("go", WORKSPACE_),
-      File.expand_path("enhancd", LOCAL_BIN_)
-    ].each do |path|
-      FileUtils.remove_entry_secure(path)
     end
   end
 end
@@ -254,6 +229,40 @@ namespace :python do
 
   task :pip do
     sh %(pip install --upgrade pip setuptools), verbose: true
+  end
+end
+
+# その他
+namespace :package do
+  desc "shell拡張"
+  task :extra_bin do
+    %w{
+      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
+    }.each do |script|
+      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
+      unless File.exists?(setting_path)
+        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
+          if ok
+            File.chmod(0755, setting_path)
+          else
+            puts "!!! Not Completed download and setting: #{scripts}"
+          end
+        end
+      end
+    end
+  end
+
+  desc "環境削除"
+  task :remove do
+    [
+      File.expand_path(".linuxbrew", "~"),
+      File.expand_path(".pyenv", "~"),
+      File.expand_path(".nodebrew", "~"),
+      File.expand_path("go", WORKSPACE_),
+      File.expand_path("enhancd", LOCAL_BIN_)
+    ].each do |path|
+      FileUtils.remove_entry_secure(path)
+    end
   end
 end
 
