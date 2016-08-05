@@ -106,6 +106,7 @@ namespace :brew do
     %w{
       tmux
       git
+      hub
       tig
       go
       perl
