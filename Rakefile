@@ -81,7 +81,14 @@ end
 
 namespace :brew do
   desc "brewセットアップ"
-  task :setup => ["brew:linuxbrew", "brew:formula"]
+  task :setup => ["brew:ruby", "brew:linuxbrew", "brew:formula"]
+
+  task :ruby do
+    if RUBY_VERSION.to_f < 2.2
+      puts "!!! Please install Ruby version 2.1 upper"
+      next
+    end
+  end
 
   task :linuxbrew do |task|
     next if installed?(task.name.top)
