@@ -39,30 +39,6 @@ task :create_symlink do
 end
 
 namespace :package do
-  desc " ... setup pyenv & pip"
-  task :pyenv do
-    sh %(type pyenv 2> /dev/null) do |ok, _|
-      unless ok
-        puts "!!! Will not install Python. Please try again: brew install pyenv"
-        next
-      end
-    end
-
-    sh %(pyenv install 3.5.1), verbose: true do |ok, _|
-      [
-        "pyenv global 3.5.1",
-        "pip install --upgrade pip setuptools"
-      ].each do |command|
-        sh command, verbose: true
-      end
-    end
-  end
-
-  desc " ... neovim with python and perl"
-  task :neovim do
-    sh %(brew install neovim/neovim/neovim), verbose: true
-  end
-
   desc " ... extra scripts"
   task :extra_bin do
     %w{
@@ -124,7 +100,7 @@ namespace :apt do
   end
 
   task :update do
-    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
+    sh %(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
   end
 end
 
@@ -156,6 +132,37 @@ namespace :brew do
     }.each do |formula|
       sh %(brew install #{formula}), verbose: true
     end
+  end
+
+end
+
+namespace :neovim do
+  desc "NeoVimセットアップ"
+  task :setup => ["neovim:apt", "neovim:pip3"]
+
+  desc "NeoVim依存解決"
+  task :depended => ["apt:setup", "python:setup"]
+
+  # todo: 新しい方のlibtoolではインストールできない
+  task :brew do
+    sh %(brew install neovim/neovim/neovim), verbose: true
+  end
+
+  # 依存解決に apt:setup & python:setup すること
+  task :apt do
+    %w{
+      add-apt-repository ppa:neovim-ppa/unstable
+      apt-get update
+      apt-get install neovim
+    }.each do |command|
+      sh %(sudo #{command}), verbose: true
+    end
+  end
+
+  task :pip3 do |task|
+    next unless installed?(task.name.bottom)
+
+    sh %(pip3 install neovim)
   end
 end
 
@@ -223,6 +230,30 @@ namespace :nodejs do
 
   task :npm do
     sh %(npm update -g npm), verbose: true
+  end
+end
+
+namespace :python do
+  desc "Pythonセットアップ"
+  task :setup => ["python:pyenv", "python:pip"]
+
+  task :pyenv do |task|
+    next unless installed?(task.name.bottom)
+
+    [
+      "install 3.5.1",
+      "global 3.5.1"
+    ].each do |command|
+      sh %(pyenv #{command}), verbose: true do |ok, _|
+        unless ok
+          puts "!!! Warning can note use Python: Please try execute: rake #{task.name}"
+        end
+      end
+    end
+  end
+
+  task :pip do
+    sh %(pip install --upgrade pip setuptools), verbose: true
   end
 end
 
