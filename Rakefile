@@ -131,9 +131,13 @@ namespace :neovim do
   desc "NeoVim依存解決"
   task :depended => ["apt:setup", "python:setup"]
 
-  # todo: 新しい方のlibtoolではインストールできない
   task :brew do
-    sh %(brew install neovim/neovim/neovim), verbose: true
+    [
+      "brew reinstall -s libtool",
+      "brew install neovim/neovim/neovim"
+    ].each do |command|
+      sh command, verbose: true
+    end
   end
 
   # 依存解決に apt:setup & python:setup すること
