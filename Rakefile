@@ -102,6 +102,11 @@ namespace :brew do
     end
   end
 
+  desc "linuxbrewの更新(時間がかかる)"
+  task :upgrade do |task|
+    sh %(brew upgrade), verbose: true
+  end
+
   task :formula do
     %w{
       tmux
