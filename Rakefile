@@ -85,7 +85,7 @@ namespace :brew do
 
   task :ruby do
     if RUBY_VERSION.to_f < 2.2
-      puts "!!! Please install Ruby version 2.1 upper"
+      puts "!!! Please install Ruby version >= 2.1"
       next
     end
   end
