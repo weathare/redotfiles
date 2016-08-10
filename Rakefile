@@ -245,7 +245,7 @@ namespace :python do
   end
 
   task :pip do
-    sh %(pip install --upgrade pip setuptools), verbose: true
+    sh %(pip install --upgrade pip setuptools sphinx-doc), verbose: true
   end
 end
 
