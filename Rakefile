@@ -108,17 +108,32 @@ namespace :brew do
   end
 
   task :formula do
-    %w{
-      tmux
-      git
-      hub
-      tig
-      go
-      perl
-      pyenv
-      vim
-    }.each do |formula|
+    {
+      tmux: nil,
+      git:  nil,
+      hub:  nil,
+      tig:  nil,
+      go:   nil,
+      perl: [
+        File.expand_path(".linuxbrew/opt/openssl/bin/c_rehash", '~'),
+        %(PERL_MM_OPT="INSTALL_BASE=$HOME/perl5" cpan local::lib)
+      ],
+      pyenv: [
+        "mkdir -p ~/.local/lib/python3.5/site-packages",
+        %(echo 'import site; site.addsitedir("~/.linuxbrew/lib/python2.7/site-packages")' >> ~/.local/lib/python3.5/site-packages/homebrew.pth)
+      ],
+      vim: nil
+    }.each do |formula, options|
+      formula = formula.to_s
+
+      next if installed?(formula)
+
       sh %(brew install #{formula}), verbose: true
+      options.each do |command|
+        sh command, verbose: true do |ok, _|
+          next unless ok
+        end
+      end unless options.nil?
     end
   end
 
