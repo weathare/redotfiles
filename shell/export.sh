@@ -15,6 +15,9 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH:"
 export GOPATH="$HOME/workspace/go"
 export PATH="$GOPATH/bin:$HOME/.linuxbrew/opt/go/libexec/bin:$PATH"
 
+# perl
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+
 # pyenv
 export PYENV_ROOT="$HOME/.linuxbrew/var/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi

@@ -126,7 +126,7 @@ end
 
 namespace :neovim do
   desc "NeoVimセットアップ"
-  task :setup => ["neovim:apt", "neovim:pip3"]
+  task :setup => ["neovim:brew", "neovim:pip3"]
 
   desc "NeoVim依存解決"
   task :depended => ["apt:setup", "python:setup"]
@@ -245,7 +245,7 @@ namespace :python do
   end
 
   task :pip do
-    sh %(pip install --upgrade pip setuptools sphinx-doc), verbose: true
+    sh %(pip install --upgrade pip setuptools sphinx), verbose: true
   end
 end
 
