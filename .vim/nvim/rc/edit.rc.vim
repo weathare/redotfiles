@@ -8,7 +8,7 @@ set expandtab
 set ts=2 sw=2 sts=2
 
 " インデント
-set shiftwidth=4
+set shiftwidth=2
 set shiftround
 set autoindent smartindent
 
