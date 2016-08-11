@@ -10,7 +10,7 @@ let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+      \   'left': [ [ 'mode' ], [ 'fugitive', 'filename' ] ],
       \   'right': [ ['fileencoding', 'filetype', 'lineinfo'], ['syntastic'] ]
       \ },
       \ 'component_function': {

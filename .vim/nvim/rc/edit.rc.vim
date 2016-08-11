@@ -36,7 +36,7 @@ set hidden
 
 " 補完
 set infercase
-
+set pumheight=12
 
 " " 折りたたみ
 " set foldenable

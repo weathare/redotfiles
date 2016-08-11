@@ -41,3 +41,5 @@ inoremap <C-l> <Right>
 " deinアップデート
 cnoremap deinup :call dein#update()<CR>
 
+" 行末までヤンク
+nnoremap Y y$
