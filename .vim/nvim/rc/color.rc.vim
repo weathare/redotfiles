@@ -11,7 +11,7 @@ let g:lightline = {
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-      \   'right': [ ['lineinfo', 'syntastic'] ]
+      \   'right': [ ['fileencoding', 'filetype', 'lineinfo'], ['syntastic'] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
