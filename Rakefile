@@ -6,7 +6,13 @@ LOCAL_BIN_=File.expand_path("bin", "~")
 WORKSPACE_=File.expand_path("workspace", "~")
 
 desc "インストール"
-task :install => [:initialize, :create_symlink, "package:apt_update", "package:install", "package:nvim_setup"]
+task :install => [
+  :initialize, :create_symlink,
+  "apt:setup", "brew:setup",
+  "python:setup", "nodejs:setup", "go:setup",
+  "neovim:setup",
+  "package:extra_bin"
+]
 
 desc "アンインストール"
 task :uninstall => ["package:remove"]
@@ -38,19 +44,12 @@ task :create_symlink do
   end
 end
 
-desc "Install some packages!!"
-namespace :package do
-  desc "基本セットアップ"
-  task :install => ["package:linuxbrew", "package:formula", "package:go", "package:enhancd"]
+namespace :apt do
+  desc "aptパッケージセットアップ"
+  task :setup => ["apt:get", "apt:add_repository", "apt:update"]
 
-  desc "OSサードパーティ系セットアップ"
-  task :apt_update => ["package:apt", "package:add_apt"]
-
-  desc "NeoVimセットアップ"
-  task :nvim_setup => ["package:pyenv", "package:neovim"]
-
-  desc " ... apt-getパッケージ(brewの前に実行すると幸せになるよ)"
-  task :apt do
+  # apt-getパッケージ(brewの前に実行すると幸せになるよ)
+  task :get do
     %w{
       software-properties-common
       python-software-properties
@@ -63,8 +62,8 @@ namespace :package do
     end
   end
 
-  desc " ... aptサードパーティリポジトリを追加"
-  task :add_apt do
+  #  aptサードパーティリポジトリを追加
+  task :add_repository do
     %w{
       ppa:git-core/ppa
       ppa:ubuntu-lxc/lxd-stable
@@ -73,15 +72,26 @@ namespace :package do
     }.each do |repository|
       sh %(sudo add-apt-repository #{repository}), verbose: true
     end
-
-    sh %w(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
   end
 
-  desc " ... linuxbrew"
-  task :linuxbrew do
-    sh %(type brew 2> /dev/null) do |ok, _|
-      next if ok
+  task :update do
+    sh %(sudo apt-get update && sudo apt-get upgrade -y), verbose: true
+  end
+end
+
+namespace :brew do
+  desc "brewセットアップ"
+  task :setup => ["brew:ruby", "brew:linuxbrew", "brew:formula"]
+
+  task :ruby do
+    if RUBY_VERSION.to_f < 2.2
+      puts "!!! Please install Ruby version >= 2.1"
+      next
     end
+  end
+
+  task :linuxbrew do |task|
+    next if installed?(task.name.top)
 
     brew_dir = File.expand_path(".linuxbrew", "~")
     sh %(ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"), verbose: true do |ok, _|
@@ -92,11 +102,16 @@ namespace :package do
     end
   end
 
-  desc " ... formula with linuxbrew"
+  desc "linuxbrewの更新(時間がかかる)"
+  task :upgrade do |task|
+    sh %(brew upgrade), verbose: true
+  end
+
   task :formula do
     %w{
       tmux
       git
+      hub
       tig
       go
       perl
@@ -107,38 +122,63 @@ namespace :package do
     end
   end
 
-  desc " ... setup pyenv & pip"
-  task :pyenv do
-    sh %(type pyenv 2> /dev/null) do |ok, _|
-      unless ok
-        puts "!!! Will not install Python. Please try again: brew install pyenv"
-        next
-      end
-    end
+end
 
-    sh %(pyenv install 3.5.1), verbose: true do |ok, _|
-      [
-        "pyenv global 3.5.1",
-        "pip install --upgrade pip setuptools"
-      ].each do |command|
-        sh command, verbose: true
-      end
+namespace :neovim do
+  desc "NeoVimセットアップ"
+  task :setup => ["neovim:brew", "neovim:pip3"]
+
+  desc "NeoVim依存解決"
+  task :depended => ["apt:setup", "python:setup"]
+
+  task :brew do
+    [
+      "brew reinstall -s libtool",
+      "brew install neovim/neovim/neovim"
+    ].each do |command|
+      sh command, verbose: true
     end
   end
 
+  # 依存解決に apt:setup & python:setup すること
+  task :apt do
+    %w{
+      add-apt-repository ppa:neovim-ppa/unstable
+      apt-get update
+      apt-get install neovim
+    }.each do |command|
+      sh %(sudo #{command}), verbose: true
+    end
+  end
 
-  desc " ... install go package"
-  task :go do
+  task :pip3 do |task|
+    next unless installed?(task.name.bottom)
+
+    sh %(pip3 install neovim)
+  end
+end
+
+namespace :go do
+  desc "Golangセットアップ"
+  task :setup => ["go:package", "go:enhancd"]
+
+  task :package do
+    unless installed?('go')
+      puts "!!! Will not install Go. Please try again: brew install go"
+    end
+
     %w{
       github.com/motemen/ghq
       github.com/peco/peco/cmd/peco
       github.com/b4b4r07/gch
     }.each do |package|
-      sh %(go get #{package}), verbose: true
+      sh %(go get #{package}), verbose: true do |ok, _|
+        next unless ok
+      end
     end
   end
 
-  desc " ... enhancd depended peco"
+  # depended peco
   task :enhancd do
     sh %(type peco 2> /dev/null) do |ok, _|
       next unless ok
@@ -153,40 +193,6 @@ namespace :package do
       end
 
       puts "You try: source #{enhancd_dir}/init.sh"
-    end
-  end
-
-  desc " ... neovim with python and perl"
-  task :neovim do
-    sh %(brew install neovim/neovim/neovim), verbose: true
-  end
-
-  desc " ... extra scripts"
-  task :extra_bin do
-    %w{
-      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
-    }.each do |script|
-      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
-      unless File.exists?(setting_path)
-        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
-          if ok
-            File.chmod(0755, setting_path)
-          else
-            puts "!!! Not Completed download and setting: #{scripts}"
-          end
-        end
-      end
-    end
-  end
-
-  desc "Installed packages delete!"
-  task :remove do
-    [
-      File.expand_path(".linuxbrew", "~"),
-      File.expand_path("go", WORKSPACE_),
-      File.expand_path("enhancd", LOCAL_BIN_)
-    ].each do |path|
-      FileUtils.remove_entry_secure(path)
     end
   end
 end
@@ -219,6 +225,64 @@ namespace :nodejs do
   end
 end
 
+namespace :python do
+  desc "Pythonセットアップ"
+  task :setup => ["python:pyenv", "python:pip"]
+
+  task :pyenv do |task|
+    next unless installed?(task.name.bottom)
+
+    [
+      "install 3.5.1",
+      "global 3.5.1"
+    ].each do |command|
+      sh %(pyenv #{command}), verbose: true do |ok, _|
+        unless ok
+          puts "!!! Warning can note use Python: Please try execute: rake #{task.name}"
+        end
+      end
+    end
+  end
+
+  task :pip do
+    sh %(pip install --upgrade pip setuptools sphinx), verbose: true
+  end
+end
+
+# その他
+namespace :package do
+  desc "shell拡張"
+  task :extra_bin do
+    %w{
+      https://raw.githubusercontent.com/yuroyoro/git-ignore/master/git-ignore
+    }.each do |script|
+      setting_path = File.expand_path(File.basename(script), LOCAL_BIN_)
+      unless File.exists?(setting_path)
+        sh %(curl -sL #{script} > #{setting_path}), verbose: true do |ok, _|
+          if ok
+            File.chmod(0755, setting_path)
+          else
+            puts "!!! Not Completed download and setting: #{scripts}"
+          end
+        end
+      end
+    end
+  end
+
+  desc "環境削除"
+  task :remove do
+    [
+      File.expand_path(".linuxbrew", "~"),
+      File.expand_path(".pyenv", "~"),
+      File.expand_path(".nodebrew", "~"),
+      File.expand_path("go", WORKSPACE_),
+      File.expand_path("enhancd", LOCAL_BIN_)
+    ].each do |path|
+      FileUtils.remove_entry_secure(path)
+    end
+  end
+end
+
 def backup!(fullpath)
   if File.exists?(fullpath)
     FileUtils.cp_r(fullpath, "%s_" % fullpath, preserve: true, verbose: true)
@@ -235,5 +299,9 @@ end
 class String
   def bottom
     self.split(':').last
+  end
+
+  def top
+    self.split(':').first
   end
 end
