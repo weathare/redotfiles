@@ -17,32 +17,30 @@ repo = 'Shougo/unite-outline'
 on_source = 'unite.vim'
 
 [[plugins]]
+repo = 'Shougo/neosnippet'
+on_i = 1
+on_ft = ['snippet']
+depends = 'neosnippet-snippets'
+hook_add = '''
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+'''
+
+[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
 if = "has('nvim')"
 on_i = 1
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
-
-inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-      \ neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 '''
 
-[[plugins]]
-repo = 'Shougo/neosnippet'
-on_i = 1
-on_ft = ['snippet']
-depends = 'neosnippet-snippets'
-hook_add = '''
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-if has('cancel')
-  set conceallevel=2 concealcursor=niv
-endif
-'''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
