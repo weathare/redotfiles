@@ -52,6 +52,7 @@
 # hub alias
   pr = !hub pull-request
   pri = "!f() { hub pull-request -i $1 ; };"
+  ppr = "!f() { git push origin $1; hub pull-request }"
   open-list = !hub issue
 [color]
   status = auto
