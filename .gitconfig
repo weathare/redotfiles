@@ -8,7 +8,6 @@
   aliass = !git config --get-regexp alias
   me = !git config --get-regexp user
   p = push
-  # st = status
   st = status --short --branch
   sh = show
   so = remote show origin
@@ -26,7 +25,6 @@
 # for branch
   br = branch             # originも含めたすべてのbranchを表示
   ba = branch -a
-  bm = branch --merge     # merge済みbranchを表示
   bn = branch --no-merge  # mergeしてないbranchを
 # for log
   ls = log --stat         # logに変更されたファイルも一緒に出す
