@@ -9,7 +9,7 @@ alias cls='clear && ls -F'
 alias md='mkdir -p'
 alias grep='grep --color'
 alias h='history'
-alias less='/usr/share/vim/vim74/macros/less.sh'
+alias less='~/.linuxbrew/share/nvim/runtime/macros/less.sh'
 alias tmux='tmux -2'
 alias ruby-new='rbenv install -l | grep -v - | tail -1'
 
