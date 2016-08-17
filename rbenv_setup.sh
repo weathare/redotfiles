@@ -32,7 +32,6 @@ _RBENV_
   # git clone https://github.com/sstephenson/rbenv-gem-rehash.git $RPLUGIN_PATH/rbenv-gem-rehash
   git clone https://github.com/rkh/rbenv-update.git $RPLUGIN_PATH/rbenv-update
   git clone https://github.com/jf/rbenv-gemset.git $RPLUGIN_PATH/rbenv-gemset
-  git clone https://github.com/ianheggie/rbenv-binstubs.git $RPLUGIN_PATH/rbenv-binstubs
 
 
   cat<<'_GROBAL_'>$HOME/.rbenv/default-gems
