@@ -49,6 +49,10 @@
 # for grep
   gr = grep
   gn = grep -n
+# hub alias
+  pr = !hub pull-request
+  pri = "!f() { hub pull-request -i $1 ; };"
+  open-list = !hub issue
 [color]
   status = auto
   diff = auto
