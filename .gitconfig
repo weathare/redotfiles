@@ -25,6 +25,7 @@
   br = branch             # originも含めたすべてのbranchを表示
   ba = branch -a
   bn = branch --no-merge  # mergeしてないbranchを
+  refresh = !git fetch origin && git remote prune origin  # リモートブランチの同期
 # for log
   ls = log --stat         # logに変更されたファイルも一緒に出す
   lp = log -p             # diffも一緒に出す
