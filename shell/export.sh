@@ -1,6 +1,5 @@
 # editor
-export GIT_EDITOR=vim
-export VISUAL=vim
+export VISUAL=nvim
 
 # rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
