@@ -2,7 +2,7 @@
   path = ~/.git.local
 [core]
   excludesfile = ~/.gitignore
-  editor = vim
+  editor = nvim
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
