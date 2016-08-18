@@ -4,11 +4,9 @@
   excludesfile = ~/.gitignore
   editor = vim
 [alias]
-  alias = !"if test -z $1; then loop=; for k in `git config --get-regexp ^alias\\. | sort | sed -e 's/^alias\\.\\(\\S*\\).*/\\1/g'`; do echo -n $k; loop="${loop}1"; if test ${#loop} -lt 5; then echo -n '\t'; else echo; loop=; fi; done; exit; fi; git config --list | grep ^alias\\.$1= | sed -e s/^alias\\.//; exit;"
-  aliass = !git config --get-regexp alias
+  alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
   p = push
-  # st = status
   st = status --short --branch
   sh = show
   so = remote show origin
@@ -26,8 +24,8 @@
 # for branch
   br = branch             # originも含めたすべてのbranchを表示
   ba = branch -a
-  bm = branch --merge     # merge済みbranchを表示
   bn = branch --no-merge  # mergeしてないbranchを
+  refresh = !git fetch origin && git remote prune origin  # リモートブランチの同期
 # for log
   ls = log --stat         # logに変更されたファイルも一緒に出す
   lp = log -p             # diffも一緒に出す
@@ -52,6 +50,11 @@
 # for grep
   gr = grep
   gn = grep -n
+# hub alias
+  pr = !hub pull-request
+  pri = "!f() { hub pull-request -i $1 ; }; f"
+  ppr = "!f() { git push origin $1 && hub pull-request ; }; f"
+  open-list = !hub issue
 [color]
   status = auto
   diff = auto
