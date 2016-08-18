@@ -3,6 +3,13 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+# ref: https://github.com/neovim/neovim/issues/2377#issuecomment-126092442
+  cmd = nvim -d $BASE $LOCALE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
@@ -26,6 +33,7 @@
   ba = branch -a
   bn = branch --no-merge  # mergeしてないbranchを
   refresh = !git fetch origin && git remote prune origin  # リモートブランチの同期
+  bp = pull --prune
 # for log
   ls = log --stat         # logに変更されたファイルも一緒に出す
   lp = log -p             # diffも一緒に出す
