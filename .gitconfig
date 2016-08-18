@@ -9,7 +9,13 @@
   prompt = true
 [mergetool "vimdiff"]
 # ref: https://github.com/neovim/neovim/issues/2377#issuecomment-126092442
-  cmd = nvim -d $BASE $LOCALE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  path = nvim
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[difftool "vimdiff"]
+  path = nvim
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
@@ -41,7 +47,7 @@
   lo = log --pretty=oneline --stat # logに変更されたファイルも一緒に出す
   la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
   lg = log --graph --all --date=short --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-  copy-hash = !"git log --graph --pretty=format:'%d %an: %s %ar %h' | peco | awk -F ' ' '{ print $NF }'"
+  copy-reflog = !"reflog --pretty='%h %gd %gs %ar' | peco | awk -F ' ' '{ print $1, $2}'"
 # for diff
   dm = diff master        # masterとのdiff
   dw = diff --color-words # wordごとに色つきdiff
@@ -64,6 +70,7 @@
   ppr = "!f() { git push origin $1 && hub pull-request ; }; f"
   open-list = !hub issue
 [color]
+  ui = auto
   status = auto
   diff = auto
   branch = auto

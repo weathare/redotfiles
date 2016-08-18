@@ -19,6 +19,13 @@ set number
 set wrap
 set whichwrap=b,s,h,l,<,>,~,[,]
 
+function! SetDiffMode()
+  if &diff
+    setlocal wrap<
+  endif
+endfunction
+autocmd VimEnter,FilterWritePre * call SetDiffMode()
+
 
 " テキスト整形オプション
 " c: 幅に合わせてコメントを自動折返し
