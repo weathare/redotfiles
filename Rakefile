@@ -264,6 +264,25 @@ namespace :python do
   end
 end
 
+# cloudfoundry/blurmix
+namespace :cloudfoundry do
+  desc 'cfコマンド'
+  task :cli do
+    if /x86_64|amd64/i !~ RUBY_PLATFORM
+      puts "!!! Can not install cf command. binary is published with only 64bit."
+      next
+    end
+
+    sh %(curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx), verbose: true do |ok, _|
+      next unless ok
+    end
+
+    FileUtils.cp("cf", LOCAL_BIN_, verbose: true)
+    sh %(cf --version), verbose: true
+  end
+end
+
+
 # その他
 namespace :package do
   desc "shell拡張"
