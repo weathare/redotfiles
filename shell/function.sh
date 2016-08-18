@@ -39,13 +39,38 @@ function mcd() {
   mkdir -p $1 && cd $1
 }
 
-function peco-select-history() {
-  local l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
-  READLINE_LINE="$l"
-  READLINE_POINT=${#l}
-}
-bind -x '"\C-r": peco-select-history'
+# function peco-select-history() {
+#   local l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
+#   READLINE_LINE="$l"
+#   READLINE_POINT=${#l}
+# }
+# bind -x '"\C-r": peco-select-history'
 
+# ghq + fzf: ghq管理のパスを探索
+function fzrepo() {
+  local dir
+  dir=$(ghq list | fzf-tmux --reverse) && cd $(ghq root)/$dir
+}
+
+# gch + fzf: 作業中のGOPATHへ移動
+function gcd() {
+  local dir
+  dir=$(gch -l | fzf-tmux --reverse | awk '{print $0}') && cd $dir && git status --short --branch
+}
+
+# git add + fzf: git add支援
+gaf() {
+  local addfiles
+  addfiles=$(git status --short | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
+  if [[ -n $addfiles ]]; then
+    echo $addfiles
+    git add $addfiles && git status --short --branch
+  else
+    echo "nothing added.\n"
+  fi
+}
+
+# ps + peco: 実行中プロセスを殺します
 function peco-kill() {
   proc=`ps aux | peco`
   pid=`echo "$proc" | awk '{print $2}'`

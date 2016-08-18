@@ -47,7 +47,7 @@
   lo = log --pretty=oneline --stat # logに変更されたファイルも一緒に出す
   la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
   lg = log --graph --all --date=short --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-  copy-reflog = !"reflog --pretty='%h %gd %gs %ar' | peco | awk -F ' ' '{ print $1, $2}'"
+  copy-reflog = !"git reflog --pretty='%h %gd %gs %an %ar' | fzf | awk -F ' ' '{ print $1, $2}'"
 # for diff
   dm = diff master        # masterとのdiff
   dw = diff --color-words # wordごとに色つきdiff
