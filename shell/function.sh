@@ -46,3 +46,10 @@ function peco-select-history() {
 }
 bind -x '"\C-r": peco-select-history'
 
+function peco-kill() {
+  proc=`ps aux | peco`
+  pid=`echo "$proc" | awk '{print $2}'`
+  echo "kill pid:$pid. [$proc]"
+  kill $pid
+}
+

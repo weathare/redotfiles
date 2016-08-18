@@ -238,6 +238,16 @@ namespace :nodejs do
   task :npm do
     sh %(npm update -g npm), verbose: true
   end
+
+  task :global do
+    %w{
+      webpack
+      babel-cli
+      git-grep-edit
+    }.each do |package|
+      sh %(npm install -g #{package}), verbose: true
+    end
+  end
 end
 
 namespace :python do
