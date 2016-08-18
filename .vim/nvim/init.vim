@@ -54,10 +54,9 @@ if has('vim_starting')
 endif
 
 
+execute 'source $XDG_CONFIG_HOME/nvim/rc/unset.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/encoding.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/edit.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/view.rc.vim'
 execute 'source $XDG_CONFIG_HOME/nvim/rc/keymap.rc.vim'
 
-" deinアップデート
-cnoremap deinup :call dein#update()<CR>
