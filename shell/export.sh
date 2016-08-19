@@ -36,6 +36,7 @@ source "$HOME/bin/enhancd/init.sh"
 export FZF_DEFAULT_OPTS="
   --ansi
   --reverse
+  --exit-0
   --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 "
 

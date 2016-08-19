@@ -63,7 +63,6 @@ gaf() {
   local addfiles
   addfiles=$(git status --short | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
   if [[ -n $addfiles ]]; then
-    echo $addfiles
     git add $addfiles && git status --short --branch
   else
     echo "nothing added.\n"
