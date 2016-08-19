@@ -1,4 +1,5 @@
 # editor
+export EDITOR=nvim
 export VISUAL=nvim
 
 # rbenv
@@ -29,4 +30,13 @@ export XDG_CONFIG_HOME="$HOME/.vim"
 
 # enhancd
 source "$HOME/bin/enhancd/init.sh"
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_OPTS="
+  --ansi
+  --reverse
+  --exit-0
+  --color info:183,prompt:110,spinner:107,pointer:167,marker:215
+"
 

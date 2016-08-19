@@ -175,7 +175,7 @@ end
 
 namespace :go do
   desc "Golangセットアップ"
-  task :setup => ["go:package", "go:enhancd"]
+  task :setup => ["go:package", "go:enhancd", "go:fzf"]
 
   task :package do
     unless installed?('go')
@@ -210,6 +210,16 @@ namespace :go do
       puts "You try: source #{enhancd_dir}/init.sh"
     end
   end
+
+  desc "fzfのセットアップ"
+  task :fzf do
+    sh %(git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf), verbose: true do |ok, _|
+      next unless ok
+
+      puts " `.bashrc` への書き込み要求は [N] を選択してください"
+      sh %(~/.fzf/install), verbose: true
+    end
+  end
 end
 
 namespace :nodejs do
@@ -237,6 +247,16 @@ namespace :nodejs do
 
   task :npm do
     sh %(npm update -g npm), verbose: true
+  end
+
+  task :global do
+    %w{
+      webpack
+      babel-cli
+      git-grep-edit
+    }.each do |package|
+      sh %(npm install -g #{package}), verbose: true
+    end
   end
 end
 
