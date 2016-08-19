@@ -84,4 +84,169 @@ snippet     after_destroy
 abbr        after_destroy :method
 options     word
     after_destroy :${1:method}
+
+# association
+# cf. http://railsguides.jp/association_basics.html#has-many-through%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91
+snippet     belongs_to
+abbr        belongs_to :model
+options     word
+  belongs_to :${1:model}
+
+snippet     belongs_to_class
+abbr        belongs_to :model, :class_name, :foreign_key
+options     word
+  belongs_to :${1:model}, class_name: ${2:name}, foreign_key: ${3:key}
+
+snippet     belongs_to_polymorphic
+abbr        belongs_to :model, :polymorphic
+options     word
+  belongs_to :${1:model}, polymorphic: true
+
+snippet     has_many
+abbr        has_many :model
+options     word
+  has_many :${1:model}
+
+snippet     has_many_class
+abbr        has_many :model, :class_name, :foreign_key
+options     word
+  has_many :${1:model}, class_name: ${2:name}, foreign_key: ${3:key}
+
+snippet     has_many_through
+abbr        has_many :model, :through
+options     word
+  has_many :${1:model}, through: ${2:model}
+
+snippet     has_many_polymorphic
+abbr        has_many :model, :as
+options     word
+  has_many :${1:model}, as: ${2:belongs_model}
+
+snippet     has_one
+abbr        has_one :model
+options     word
+  has_one :${1:model}
+
+snippet     has_one_class
+abbr        has_one :model, :class_name, :foreign_key
+options     word
+  has_one :${1:model}, class_name: ${2:name}, foreign_key: ${3:key}
+
+snippet     has_one_through
+abbr        has_one :model, :through
+options     word
+  has_one :${1:model}, through: ${2:model}
+
+snippet     has_one_polymorphic
+abbr        has_one :model, :as
+options     word
+  has_one :${1:model}, as: ${2:belongs_model}
+
+snippet     has_and_belong_to_many
+abbr        has_and_belong_to_many :model
+options     word
+  has_and_belong_to_many :${1:model}
+
+snippet     autosave
+abbr        (associate option) :autosave
+options     word
+  autosave: true
+
+snippet     counter_cache
+abbr        (associate option) :counter_cache
+options     word
+  counter_cache: true
+
+snippet     dependent
+abbr        (associate option) :dependent
+options     word
+  dependent: :${1:method}
+
+snippet     dependent_destroy
+abbr        (associate option) :dependent to also be destroyed
+options     word
+  dependent: :destroy
+
+snippet     dependent_delete
+abbr        (associate option) :dependent to be deleted. callback will be not execute.
+options     word
+  dependent: :delete_all
+
+snippet     dependent_null
+abbr        (associate option) :dependent the foreign_key to be set NULL
+options     word
+  dependent: :nullify
+
+snippet     dependent_exception
+abbr        (associate option) :dependent raise ActiveRecord::RecordNotSaved
+options     word
+  dependent: :restrict_with_exception
+
+snippet     dependent_error
+abbr        (associate option) :dependent return an error to be owner
+options     word
+  dependent: :restrict_with_error
+
+snippet     primary_key
+abbr        (associate option) :primary_key
+options     word
+  primary_key: :${1:name}
+
+snippet     touch
+abbr        (associate option) :touch
+options     word
+  touch: true
+
+snippet     validate
+abbr        (associate option) :validate
+options     word
+  validate: true
+
+snippet     scope_where
+abbr        (associate scope) -> { where() }
+options     word
+  -> { where(${1:rule}) }
+
+snippet     scope_includes
+abbr        (associate scope) -> { includes() }
+options     word
+  -> { includes(${1:rule}) }
+
+snippet     scope_distinct
+abbr        (associate scope) -> { distinct }, through: :model
+options     word
+  -> { distinct }, through: :${1:model}
+
+snippet     before_add
+abbr        (associate callback) before_add
+options     word
+  before_add: :${1:method}
+
+snippet     after_add
+abbr        (associate callback) after_add
+options     word
+  after_add: :${1:method}
+
+snippet     before_remove
+abbr        (associate callback) before_rmove
+options     word
+  before_remove: :${1:method}
+
+snippet     after_remove
+abbr        (associate callback) after_remove
+options     word
+  after_remove: :${1:method}
+
+snippet     enum
+abbr        (ActiveRecord::Enum) enum :column { draft: 1, published: 2 }
+options     word
+  enum :${1:column} { ${2} }
+
+snippet     transaction
+abbr        ActiveRecord::Base.transaction do end
+options     word
+  ActiveRecord::Base.transaction do
+    ${1}
+  end
+
 # }}}

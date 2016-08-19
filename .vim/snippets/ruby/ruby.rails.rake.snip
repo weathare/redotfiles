@@ -1,0 +1,14 @@
+snippet     task
+abbr        task end
+  task ${1:name}: :environment do |task|
+    ${2}
+  end
+
+snippet     name_task
+abbr        namespace do task end
+  namespace :${1:name} do
+    task ${2:task}: :environment do |task|
+      ${3}
+    end
+  end
+

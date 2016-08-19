@@ -20,6 +20,7 @@ augroup MyAutoCmd
     autocmd BufEnter,BufRead,BufNew app/models/*.rb      NeoSnippetSource ~/.vim/snippets/ruby/ruby.rails.model.snip
     autocmd BufEnter,BufRead,BufNew app/db/migrate/*     NeoSnippetSource ~/.vim/snippets/ruby/ruby.rails.migrate.snip
     autocmd BufEnter,BufRead,BufNew app/config/routes.rb NeoSnippetSource ~/.vim/snippets/ruby/ruby.rails.route.snip
+    autocmd BufEnter,BufRead,BufNew lib/task/*.task      NeoSnippetSource ~/.vim/snippets/ruby/ruby.rails.rake.snip
     autocmd BufEnter,BufRead,BufNew spec/**/*.rb         NeoSnippetSource ~/.vim/snippets/ruby/ruby.rails.rspec.snip
 augroup END
 
