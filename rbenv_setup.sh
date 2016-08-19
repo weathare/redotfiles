@@ -40,6 +40,7 @@ rubocop
 hpricot
 pry
 pry-doc
+activesupport
 
 _GROBAL_
 fi
