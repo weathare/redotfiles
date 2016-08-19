@@ -3,13 +3,13 @@
 Pry.config.color = true
 Pry.config.editor = "vim"
 Pry.config.pager = "less"
+Pry.config.theme = "tomorrow" if defined? PtyTheme
 
-old_prompt = Pry.config.prompt
-version = ""
-version << "#{Rails.version}-" if defined?(Rails)
+bak = Pry.config.prompt
+version << "#{Rails.version}-" if defined? Rails
 version << "#{RUBY_VERSION}"
 version << 'ヾ(｡﹏｡)ﾉﾞ'
-Pry.config.prompt = old_prompt.map { |prompt| proc { |*a| "#{version} #{prompt.call(*a)}" } }
+Pry.config.prompt = bak.map { |prompt| proc { |*a| "#{version} #{prompt.call(*a)}" } }
 
 begin
   require 'hirb'
@@ -53,8 +53,7 @@ Pry.commands.alias_command 'q',  'exit'
 Pry.commands.alias_command 'q!', 'exit-program'
 Pry.commands.alias_command 'h',  'help'
 
-# pry-debugger
-if Pry.plugins.has_key? 'debugger'
+if defined? PryByebug
   Pry.commands.alias_command 'c', 'continue'
   Pry.commands.alias_command 's', 'step'
   Pry.commands.alias_command 'n', 'next'
