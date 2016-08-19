@@ -65,7 +65,7 @@ gaf() {
   if [[ -n $addfiles ]]; then
     git add $addfiles && git status --short --branch
   else
-    echo "nothing added.\n"
+    echo "nothing added."
   fi
 }
 
