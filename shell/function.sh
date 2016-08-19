@@ -47,19 +47,19 @@ function mcd() {
 # bind -x '"\C-r": peco-select-history'
 
 # ghq + fzf: ghq管理のパスを探索
-function fzrepo() {
+frepo() {
   local dir
   dir=$(ghq list | fzf-tmux --reverse) && cd $(ghq root)/$dir
 }
 
 # gch + fzf: 作業中のGOPATHへ移動
-function gcd() {
+fcd() {
   local dir
-  dir=$(gch -l | fzf-tmux --reverse | awk '{print $0}') && cd $dir && git status --short --branch
+  dir=$(gch -l | fzf-tmux --reverse | awk '{print $-1}') && cd $dir && git status --short --branch
 }
 
 # git add + fzf: git add支援
-gaf() {
+fad() {
   local addfiles
   addfiles=$(git status --short | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
   if [[ -n $addfiles ]]; then
@@ -69,8 +69,33 @@ gaf() {
   fi
 }
 
+# checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# checkout git branch/tag + fzf
+fco()
+{
+  local tags branches taragat
+  tags=$(
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$tags"; echo "$branches") |
+    fzf-tmux -d -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
+
 # ps + peco: 実行中プロセスを殺します
-function peco-kill() {
+peco-kill() {
   proc=`ps aux | peco`
   pid=`echo "$proc" | awk '{print $2}'`
   echo "kill pid:$pid. [$proc]"
