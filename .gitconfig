@@ -29,8 +29,7 @@
   rbi = rebase -i
   ad = add -A
   ca = commit -a -m
-  caa = commit -a --amend
-  ci = commit -m
+  cm = commit -m
   cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
   wip = "!f () { git add -A . && git commit -m \"WIP $1\"; }; f"
   co = checkout
