@@ -55,7 +55,7 @@ frepo() {
 # gch + fzf: 作業中のGOPATHへ移動
 fcd() {
   local dir
-  dir=$(gch -l | fzf-tmux --reverse | awk '{print $-1}') && cd $dir && git status --short --branch
+  dir=$(gch -l | fzf-tmux --reverse | awk '{print $1}') && cd $dir && git status --short --branch
 }
 
 # git add + fzf: git add支援
