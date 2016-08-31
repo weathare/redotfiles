@@ -7,7 +7,7 @@ export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
 # linux brew
-export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH:"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH:"
 
