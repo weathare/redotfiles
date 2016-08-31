@@ -12,10 +12,13 @@
   path = nvim
 [diff]
   tool = vimdiff
+  compactionHeuristic = true
 [difftool]
   prompt = false
 [difftool "vimdiff"]
   path = nvim
+[interactive]
+  diffFilter = diff-highlight
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
