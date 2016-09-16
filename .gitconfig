@@ -63,6 +63,7 @@
 # for merge
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  del-mergerd = "!f() { git branch --merged origin/master | grep -v '^master|develop' | grep -v '^*' | xargs git branch -d ; } ; `f`"
 # for grep
   gr = grep
   gn = grep -n
