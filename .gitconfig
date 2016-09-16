@@ -40,7 +40,7 @@
   br = branch             # originも含めたすべてのbranchを表示
   ba = branch -a
   bn = branch --no-merge  # mergeしてないbranchを
-  refresh = !git fetch origin && git remote prune origin  # リモートブランチの同期
+  refresh = !git fetch -p origin && git remote prune origin  # リモートブランチの同期
   bp = pull --prune
 # for log
   ls = log --stat         # logに変更されたファイルも一緒に出す
