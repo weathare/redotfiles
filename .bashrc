@@ -14,5 +14,3 @@ source $SHELL_FILES/export.sh
 source $SHELL_FILES/function.sh
 source $SHELL_FILES/prompt.sh
 
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
