@@ -18,13 +18,13 @@ desc "アンインストール"
 task :uninstall => ["package:remove"]
 
 
-desc "作業ディレクトリを作成"
+desc "0. 作業ディレクトリを作成"
 task :initialize do
   FileUtils.mkdir_p(LOCAL_BIN_)
   FileUtils.mkdir_p(WORKSPACE_)
 end
 
-desc "ホームディレクトリ以下にdotfilesのSymlinkを張る"
+desc "1. ホームディレクトリ以下にdotfilesのSymlinkを張る"
 task :create_symlink do
   Dir.foreach(".") do |filename|
     next if IGNORE_FILE_.include?(filename)
@@ -45,7 +45,7 @@ task :create_symlink do
 end
 
 namespace :apt do
-  desc "aptパッケージセットアップ"
+  desc "2. aptパッケージセットアップ"
   task :setup => ["apt:get", "apt:add_repository", "apt:update"]
 
   # apt-getパッケージ(brewの前に実行すると幸せになるよ)
@@ -80,7 +80,7 @@ namespace :apt do
 end
 
 namespace :brew do
-  desc "brewセットアップ"
+  desc "3. brewセットアップ"
   task :setup => ["brew:ruby", "brew:linuxbrew", "brew:formula"]
 
   task :ruby do
@@ -140,7 +140,7 @@ namespace :brew do
 end
 
 namespace :neovim do
-  desc "NeoVimセットアップ"
+  desc "5. NeoVimセットアップ"
   task :setup => ["neovim:brew", "neovim:pip3"]
 
   desc "NeoVim依存解決"
@@ -148,7 +148,7 @@ namespace :neovim do
 
   task :brew do
     [
-      "brew reinstall -s libtool",
+      "brew reinstall -s glibtool",
       "brew install neovim/neovim/neovim"
     ].each do |command|
       sh command, verbose: true
@@ -261,8 +261,17 @@ namespace :nodejs do
 end
 
 namespace :python do
-  desc "Pythonセットアップ"
+  desc "4. Pythonセットアップ"
   task :setup => ["python:pyenv", "python:pip"]
+
+  task :initialize do
+    %w(
+      python
+      sphinx-doc
+    ).each do |formula|
+      sh %(brew install #{formula}), verbose: true
+    end
+  end
 
   task :pyenv do |task|
     next unless installed?(task.name.bottom)
