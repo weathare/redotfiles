@@ -1,10 +1,12 @@
 function show () {
   apt-cache search $1
 }
+alias show='show'
 
 function giveme () {
   sudo apt-get install "$@"
 }
+alias givme='giveme'
 
 function extract () {
   if [ -f $1 ] ; then
@@ -25,6 +27,7 @@ function extract () {
     echo "'$1' is not a valid file"
   fi
 }
+alias extract='extract'
 
 function psg() {
   if [ ! -z $1 ] ; then
@@ -34,10 +37,12 @@ function psg() {
     echo "!! Need name to grep for"
   fi
 }
+alias psg='psg'
 
 function mcd() {
   mkdir -p $1 && cd $1
 }
+alias mcd='mcd'
 
 # function peco-select-history() {
 #   local l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
@@ -51,12 +56,14 @@ frepo() {
   local dir
   dir=$(ghq list | fzf-tmux --reverse) && cd $(ghq root)/$dir
 }
+alias frepo='frepo'
 
 # gch + fzf: 作業中のGOPATHへ移動
 fcd() {
   local dir
   dir=$(gch -l | fzf-tmux --reverse | awk '{print $1}') && cd $dir && git status --short --branch
 }
+alias fcd='fcd'
 
 # git add + fzf: git add支援
 fad() {
@@ -68,6 +75,7 @@ fad() {
     echo "nothing added."
   fi
 }
+alias fad='fad'
 
 # checkout git branch (including remote branches)
 fbr() {
@@ -77,6 +85,7 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+alias fbr='fbr'
 
 # checkout git branch/tag + fzf
 fco()
@@ -93,6 +102,7 @@ fco()
     fzf-tmux -d -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
+alias fco='fco'
 
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
@@ -101,4 +111,5 @@ peco-kill() {
   echo "kill pid:$pid. [$proc]"
   kill $pid
 }
+alias peco-kill='peco-kill'
 
