@@ -27,6 +27,10 @@ repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 hook_source = 'source ~/.vim/nvim/rc/vimfiler.rc.vim'
 
+[[plugins]]
+repo = 'junegunn/fzf'
+depends = 'fzf'
+
 # -------------------------------------
 # Git (and Statusline helper)
 #
