@@ -104,6 +104,26 @@ fco()
 }
 alias fco='fco'
 
+fshow() {
+  local current branch
+  current=$(git rev-parse --abbrev-ref HEAD)
+  if [ "$current" = 'master' ]; then
+    branch="$current"
+  else
+    branch='master..'"$current"
+  fi
+
+  git log "$branch" --date=short --color \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+    --bind "ctrl-m:execute:
+              (grep -o '[a-f0-9]\{7\}' | head -1 |
+              xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+              {}
+FZF-EOF"
+}
+alias fshow='fshow'
+
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
   proc=`ps aux | peco`
@@ -113,3 +133,8 @@ peco-kill() {
 }
 alias peco-kill='peco-kill'
 
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) && tmux switch-client -t "$session"
+}
