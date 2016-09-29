@@ -30,6 +30,7 @@ hook_source = 'source ~/.vim/nvim/rc/vimfiler.rc.vim'
 [[plugins]]
 repo = 'junegunn/fzf'
 depends = 'fzf'
+hook_source = 'source ~/.vim/nvim/rc/fzf.rc.vim'
 
 # -------------------------------------
 # Git (and Statusline helper)

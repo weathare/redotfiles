@@ -42,6 +42,14 @@ nnoremap  <silent>  <Leader>rf  :<C-u>Unite rails/config<CR>
 " log
 nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
 " }}}
+" Grep --------------------------------- {{{
+nnoremap <silent>   <Leader>g   :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+" }}}
 
 
 call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
