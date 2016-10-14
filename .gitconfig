@@ -81,8 +81,6 @@
   grep = auto
 [credential]
 # helper = cache --timeout=300
-[iniit]
-  templatedir = ~/.git_template
 [push]
   default = matching
 [credential]
