@@ -13,6 +13,7 @@ alias less='~/.linuxbrew/share/nvim/runtime/macros/less.sh'
 alias tmux='tmux -2'
 alias ruby-new='rbenv install -l | grep -v - | tail -1'
 alias vi='nvim'
+alias gti='git'
 
 # This one is to take care of make
 # Give me a nice, distinguishable make output
