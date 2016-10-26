@@ -29,7 +29,7 @@ _RBENV_
   git clone https://github.com/sstephenson/ruby-build.git $RPLUGIN_PATH/ruby-build
   git clone https://github.com/ianheggie/rbenv-binstubs.git $RPLUGIN_PATH/rbenv-binstubs
   git clone https://github.com/sstephenson/rbenv-default-gems.git $RPLUGIN_PATH/rbenv-default-gems
-  # git clone https://github.com/sstephenson/rbenv-gem-rehash.git $RPLUGIN_PATH/rbenv-gem-rehash
+  git clone https://github.com/sstephenson/rbenv-gem-rehash.git $RPLUGIN_PATH/rbenv-gem-rehash
   git clone https://github.com/rkh/rbenv-update.git $RPLUGIN_PATH/rbenv-update
   git clone https://github.com/jf/rbenv-gemset.git $RPLUGIN_PATH/rbenv-gemset
 
@@ -41,6 +41,7 @@ hpricot
 pry
 pry-doc
 activesupport
+neovim
 
 _GROBAL_
 fi

@@ -77,7 +77,6 @@ repo = 'jiangmiao/auto-pairs'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
@@ -169,6 +168,10 @@ let g:deoplete#sources#omni#input_patterns = {
     \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
     \ }
 '''
+
+[[plugins]]
+if = 'has("ruby")'
+repo = 'todesking/ruby_hl_lvar.vim'
 
 [[plugins]]
 repo = 'slim-template/vim-slim'
