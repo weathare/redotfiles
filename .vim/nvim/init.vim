@@ -2,10 +2,11 @@ if &compatible
   set nocompatible
 endif
 
-let s:dein_dir      = expand('$XDG_CONFIG_HOME/dein')
-let s:dein_repo_dir = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
-let s:rc_dir        = expand('$XDG_CONFIG_HOME/nvim/rc')
-let $CACHE          = expand('$XDG_CONFIG_HOME/cache')
+let g:python3_host_prog = expand('$HOME/.pyenv/shims/python')
+let s:dein_dir          = expand('$XDG_CONFIG_HOME/dein')
+let s:dein_repo_dir     = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
+let s:rc_dir            = expand('$XDG_CONFIG_HOME/nvim/rc')
+let $CACHE              = expand('$XDG_CONFIG_HOME/cache')
 
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
