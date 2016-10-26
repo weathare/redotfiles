@@ -112,15 +112,15 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 '''
 
-[[plugins]]
-repo = 'zchee/deoplete-go'
-build = 'make'
-on_ft = 'go'
-depends = 'deoplete.vim'
-hook_post_update = '''
-let g:deoplete#sources#go#focode_binady = $GOPATH . '/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-'''
+# [[plugins]]
+# repo = 'zchee/deoplete-go'
+# build = 'make'
+# on_ft = 'go'
+# depends = 'deoplete.vim'
+# hook_post_update = '''
+# let g:deoplete#sources#go#focode_binady = $GOPATH . '/bin/gocode'
+# let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+# '''
 
 [[plugins]]
 repo = 'fatih/vim-go'
@@ -168,6 +168,12 @@ let g:monster#completion#rcodetools#backend = "async_rct_complete"
 let g:deoplete#sources#omni#input_patterns = {
     \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
     \ }
+'''
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+hook_add = '''
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 '''
 
 # -------------------------------------
