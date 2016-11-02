@@ -47,6 +47,22 @@ nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 '''
 
+[[plugins]]
+repo = 'rhysd/committia.vim'
+hook_add = '''
+let g:committia_hooks = {}
+function! g:committia_hooks.edit_open(info)
+  setlocal spell
+
+  if a:info.vcs ==# 'git' && getline(1) ==# ''
+    startinsert
+  end
+
+  imap <buffer><C-j>  <Plug>(committia-scroll-diff-down-half)
+  imap <buffer><C-k>  <Plug>(committia-scroll-diff-up-half)
+endfunction
+'''
+
 # -------------------------------------
 # Color
 #
