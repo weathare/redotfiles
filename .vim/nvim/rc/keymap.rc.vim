@@ -9,7 +9,7 @@ nnoremap <silent> <ESC><ESC> :nohlsearch<CR><ESC>
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 
 " replace
-abbreviate vft # vim: filetype=
+ab vft vim: filetype=
 
 " ウィンドウを分割 & 移動
 nnoremap e  <Nop>
@@ -43,3 +43,4 @@ cnoremap deinup :call dein#update()<CR>
 
 " 行末までヤンク
 nnoremap Y y$
+

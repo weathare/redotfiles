@@ -124,6 +124,12 @@ FZF-EOF"
 }
 alias fshow='fshow'
 
+fls() {
+  local cmd
+  cmd=$(git alias| fzf-tmux --reverse | awk '{print $1}') && git $cmd
+}
+alias fls='fls'
+
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
   proc=`ps aux | peco`
@@ -138,3 +144,8 @@ fs() {
   session=$(tmux list-sessions -F "#{session_name}" | \
     fzf --query="$1" --select-1 --exit-0) && tmux switch-client -t "$session"
 }
+
+ghq-update() {
+  ghq list | sed -E 's/^[^\/]+\/(.+)/\1/' | xargs -n 1 -P 10 ghq get -u
+}
+alias ghq-update='ghq-update'

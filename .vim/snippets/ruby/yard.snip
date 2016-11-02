@@ -1,0 +1,51 @@
+snippet @param
+abbr    yard @param
+options word
+  @param  [${1:type}] ${2:name}
+
+snippet @raise
+abbr    yard @raise
+options word
+  @raise  ${1:name}
+
+snippet @return
+abbr    yard @return
+  @return ${1:description}
+
+snippet     @option
+abbr        yard @option
+options     word
+  @option ${1:param_name} [${2:type}] :${3:name}
+
+snippet     @overload
+abbr        yard @overload
+options     word
+  @overload ${1:method}
+    @param  [${2}]
+
+snippet     @example
+abbr        yard @example
+options     word
+  @example  ${1:description}
+    ${2} #=> ${3}
+
+snippet     @see
+abbr        yard @see
+options     word
+  @see  ${1:url}
+
+snippet     @note
+abbr        yard @note
+options     word
+  @note ${1:description}
+
+snippet     @private
+abbr        yard @private
+options     word
+  @private
+
+snippet     @todo
+abbr        yard @todo
+options     word
+  @todo ${1:TODO}
+

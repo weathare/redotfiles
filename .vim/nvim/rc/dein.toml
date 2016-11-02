@@ -78,6 +78,9 @@ repo = 'jiangmiao/auto-pairs'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
+repo = 'hfm/itamae-snippets'
+
+[[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
@@ -164,14 +167,15 @@ nnoremap ,rc :RunSpecCloseResult<CR>
 repo = 'osyo-manga/vim-monster'
 hook_add = '''
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
-let g:deoplete#sources#omni#input_patterns = {
-    \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-    \ }
 '''
 
 [[plugins]]
 if = 'has("ruby")'
 repo = 'todesking/ruby_hl_lvar.vim'
+
+[[plugins]]
+if = 'has("ruby")'
+repo = 'fishbullet/deoplete-ruby'
 
 [[plugins]]
 repo = 'slim-template/vim-slim'
