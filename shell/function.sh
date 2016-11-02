@@ -126,7 +126,11 @@ alias fshow='fshow'
 
 fls() {
   local cmd
-  cmd=$(git alias| fzf-tmux --reverse | awk '{print $1}') && git $cmd
+  cmd=$(git alias | fzf-tmux --reverse | awk '{print $1}')
+
+  if [ -n "$cmd" ]; then
+    git $cmd
+  fi
 }
 alias fls='fls'
 
