@@ -30,9 +30,11 @@
   up = pull --rebase
   rb = rebase
   rbi = rebase -i
-  ad = add -A
+  ad = add
+  as = !git add -A && git status --short --branch
   ca = commit -a -m
   cm = commit -m
+  cv = commit -v
   cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
   wip = "!f () { git add -A . && git commit -m \"WIP $1\"; }; f"
   co = checkout
