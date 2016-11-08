@@ -124,7 +124,7 @@ FZF-EOF"
 }
 alias fshow='fshow'
 
-fls() {
+fa() {
   local cmd
   cmd=$(git alias | fzf-tmux --reverse | awk '{print $1}')
 
@@ -132,7 +132,7 @@ fls() {
     git $cmd
   fi
 }
-alias fls='fls'
+alias fa='fa'
 
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {

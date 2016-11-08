@@ -48,7 +48,7 @@ let g:unite_source_outline_filetype_options = {
 
 " Grep --------------------------------- {{{
 " 単語検索
-nnoremap <silent>   <Leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent>   <Leader>g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
 
 " カーソル上の単語検索
 nnoremap <silent>   <Leader>gw :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
@@ -59,6 +59,16 @@ if executable('hw')
   let g:unite_source_grep_default_opts = '--no-group --no-color'
   let g:unite_source_grep_recursive_opt = ''
 endif
+
+function! GetProjectDir() abort
+  if exists('b:vimfiler.current_dir')
+    let l:buffer_dir = b:vimfiler.current_dir
+  else
+    let l:buffer_dir = expand('%:p:h')
+  endif
+
+  return l:buffer_dir
+endfunction
 " }}}
 
 " Go ---------------------------------- {{{

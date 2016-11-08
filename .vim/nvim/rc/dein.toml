@@ -63,6 +63,16 @@ function! g:committia_hooks.edit_open(info)
 endfunction
 '''
 
+[[plugins]]
+repo = 'mattn/gist-vim'
+depends = 'mattn/webapi-vim'
+hook_add = '''
+let g:github_user = "weathare"
+'''
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
 # -------------------------------------
 # Color
 #
@@ -198,6 +208,12 @@ repo = 'slim-template/vim-slim'
 hook_add = '''
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 '''
+
+# -------------------------------------
+# Logger
+#
+[[plugins]]
+repo = "dzeban/vim-log-syntax"
 
 # -------------------------------------
 # Operators
