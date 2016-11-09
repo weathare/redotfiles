@@ -8,6 +8,11 @@ function giveme () {
 }
 alias givme='giveme'
 
+function disposeof () {
+  sudo apt-get remove "$@"
+}
+alias disposeof='disposeof'
+
 function extract () {
   if [ -f $1 ] ; then
     case $1 in
