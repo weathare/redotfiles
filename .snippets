@@ -5,7 +5,7 @@ rm         # rm -i
 grep       # grep --color
 
 # git
-fa         # git alias | fzf
+gti        # alias git
 fad        # git add | fzf
 fbr        # git branch --all | grep -v HEAD | fzf | git checkout  $target
 fco        # git tag | git branch --all | fzf | git checkout $target
@@ -15,7 +15,6 @@ fshow      # git log master..$current_branch | fzf
 fcd        # gch -l | fzf
 frepo      # ghq lis | fzf && cd $GHQ_ROOT/$target
 ghq-update # ghq list | sed | xargs ghq get -u
-gti        # alias git
 
 # apt
 sudo apt-get install -y `apt-cache search . | fzf -m | awk -v ORS=' ' '{print $1}; END{print "\n"}'`
@@ -47,6 +46,7 @@ h          # history
 keys       # ssh-add -l
 extract    # enhance unpack archived files.
 date +%Y%m%d
+date +%Y-%m-%dT%T%:z
 
 # searach
 lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
