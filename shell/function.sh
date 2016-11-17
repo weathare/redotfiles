@@ -1,19 +1,4 @@
-function show () {
-  apt-cache search $1
-}
-alias show='show'
-
-function giveme () {
-  sudo apt-get install "$@"
-}
-alias givme='giveme'
-
-function disposeof () {
-  sudo apt-get remove "$@"
-}
-alias disposeof='disposeof'
-
-function extract () {
+extract () {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2)    tar xjf $1      ;;
@@ -34,7 +19,7 @@ function extract () {
 }
 alias extract='extract'
 
-function psg() {
+psg() {
   if [ ! -z $1 ] ; then
     echo "Grepping for processes matching $1..."
     ps auwwx | grep $1 
@@ -44,7 +29,7 @@ function psg() {
 }
 alias psg='psg'
 
-function mcd() {
+mcd() {
   mkdir -p $1 && cd $1
 }
 alias mcd='mcd'
@@ -129,16 +114,6 @@ FZF-EOF"
 }
 alias fshow='fshow'
 
-fa() {
-  local cmd
-  cmd=$(git alias | fzf-tmux --reverse | awk '{print $1}')
-
-  if [ -n "$cmd" ]; then
-    git $cmd
-  fi
-}
-alias fa='fa'
-
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
   proc=`ps aux | peco`
@@ -159,17 +134,20 @@ ghq-update() {
 }
 alias ghq-update='ghq-update'
 
+# snippet + git aliasからインタラクティブに補完
 __command_snippets() {
-  local cmd
-  cmd=$(grep -v "^\s*#" ~/dotfiles/.snippets | grep -v "^\s*$" | fzf-tmux --reverse | awk '{if($0 ~ /#/)print $1; else print $0}')
-  if [ -n '$cmd' ] ; then
+  snip=$({ \
+    grep -v "^\s*#" ~/dotfiles/.snippets | grep -v "^\s*$"; \
+    git alias | sed -e 's/^\t/git /g'; \
+  } | fzf-tmux --no-sort --reverse | awk '{if($0 ~ /#/)print $1; else if($0 ~ /git/)print $1" "$2; else print $0}')
+  if [ -n '$snip' ] ; then
     builtin bind '"\er": clear-screen'
     builtin bind '"\e^": magic-space'
-    READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${cmd}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-    READLINE_POINT=$(( READLINE_POINT + ${#cmd} ))
+    READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${snip}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+    READLINE_POINT=$(( READLINE_POINT + ${#snip} ))
   else
     builtin bind '"\er": clear-screen'
-    builtin bind '"\e^": magic-space'
+    builtin bind '"\e^":'
   fi
 }
 bind -x '"\C-x1": __command_snippets'

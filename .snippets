@@ -18,9 +18,13 @@ ghq-update # ghq list | sed | xargs ghq get -u
 gti        # alias git
 
 # apt
-givme      # sudo apt-get install
-disposeof  # sudo apt-get remove
-show       # apt-cache search $1
+sudo apt-get install -y `apt-cache search . | fzf -m | awk -v ORS=' ' '{print $1}; END{print "\n"}'`
+sudo apt-get purge -y `dpkg -l | fzf -m | awk -v ORS=' ' '{print $2}; END{print "\n"}'`
+apt-cache search . | fzf
+apt-cache policy `apt-cache search . | fzf | awk '{print $1}'`
+dpkg -L `dpkg -l | fzf | awk '{print $2}'` | more
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get autoremove && sudo apt-get clean
 
 # directory
 l          # ls -CF
@@ -41,6 +45,7 @@ reboot     # sudo shutdown -r now
 reload     # source ~/.bashrc
 h          # history
 keys       # ssh-add -l
+extract    # enhance unpack archived files.
 date +%Y%m%d
 
 # searach
@@ -66,3 +71,6 @@ tmux       # tmux -2
 vi         # nvim
 less       # /.linuxbrew/share/nvim/runtime/macros/less.sh
 
+# postgresql
+psql -U postgres -h localhost
+psql -l -U postgres -h localhost
