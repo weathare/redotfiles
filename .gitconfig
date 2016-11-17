@@ -39,8 +39,8 @@
   wip = "!f () { git add -A . && git commit -m \"WIP $1\"; }; f"
   co = checkout
 # for branch
-  br = branch             # originも含めたすべてのbranchを表示
-  ba = branch -a
+  br = branch
+  ba = branch -a          # originも含めたすべてのbranchを表示
   bn = branch --no-merge  # mergeしてないbranchを
   refresh = !git fetch -p origin && git remote prune origin  # リモートブランチの同期
   bp = pull --prune

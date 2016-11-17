@@ -5,7 +5,9 @@
 
 # nvim + dein
 .init.vim-rplugin~
+.vim/configstore/
 .vim/dein
+.vim/vimfiler/
 
 
 # Added from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
