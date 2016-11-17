@@ -35,7 +35,6 @@
   ca = commit -a -m
   cm = commit -m
   cv = commit -v
-  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
   wip = "!f () { git add -A . && git commit -m \"WIP $1\"; }; f"
   co = checkout
 # for branch
@@ -49,10 +48,10 @@
   lp = log -p             # diffも一緒に出す
   lr = log origin
   lo = log --pretty=oneline --stat # logに変更されたファイルも一緒に出す
-  la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
+  la = log --color --pretty=format:'%C(green)%ad%Creset %C(red)%h%Creset %C(cyan)<%an>%Creset: %s' --date=short  # ざっくりログ出す
   lg = log --graph --all --date=short --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
   # copy-reflog = !"git reflog --pretty='%h %gd %gs %an %ar' --color | fzf | awk -F ' ' '{ print $1, $2}'"
-  copy-reflog = !"git reflog --color --pretty=format:'%Cred%h%Creset %gd -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' | fzf | awk -F ' ' '{ print $1, $2}'"
+  copy-reflog = !git reflog --color --pretty=format:'%C(red)%h%Creset %gd -%C(yellow)%d%Creset %s %C(green)(%cr) %C(cyan)<%an>%Creset' | fzf | awk -F ' ' '{ print $1, $2}'
 # for diff
   dm = diff master        # masterとのdiff
   dw = diff --color-words # wordごとに色つきdiff
@@ -63,6 +62,14 @@
   d4 = diff HEAD~~~~
   d5 = diff HEAD~~~~~
   d10 = diff HEAD^10
+# for reset
+  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
+  reset1 = reset HEAD~ --soft
+  reset2 = reset HEAD~~ --soft
+  reset3 = reset HEAD~~~ --soft
+  reset4 = reset HEAD~~~~ --soft
+  reset5 = reset HEAD~~~~~ --soft
+  reset10 = reset HEAD^10 --soft
 # for merge
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
