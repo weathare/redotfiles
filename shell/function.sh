@@ -158,3 +158,20 @@ ghq-update() {
   ghq list | sed -E 's/^[^\/]+\/(.+)/\1/' | xargs -n 1 -P 10 ghq get -u
 }
 alias ghq-update='ghq-update'
+
+__command_snippets() {
+  local cmd
+  cmd=$(grep -v "^\s*#" ~/dotfiles/.snippets | grep -v "^\s*$" | fzf-tmux --reverse | awk '{if($0 ~ /#/)print $1; else print $0}')
+  if [ -n '$cmd' ] ; then
+    builtin bind '"\er": clear-screen'
+    builtin bind '"\e^": magic-space'
+    READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${cmd}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+    READLINE_POINT=$(( READLINE_POINT + ${#cmd} ))
+  else
+    builtin bind '"\er": clear-screen'
+    builtin bind '"\e^": magic-space'
+  fi
+}
+bind -x '"\C-x1": __command_snippets'
+bind '"\C-t": "\C-x1\e^\er"'
+
