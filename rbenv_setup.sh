@@ -37,6 +37,7 @@ _RBENV_
   cat<<'_GROBAL_'>$HOME/.rbenv/default-gems
 bundler
 rubocop
+rcodetools
 hpricot
 pry
 pry-doc
