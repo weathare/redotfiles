@@ -1,6 +1,6 @@
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=2500
-HISTFILESIZE=10000
+HISTSIZE=12000
+# HISTFILESIZE=10000
 HISTCONTROL=ignoreboth
 
 # make less more friendly for non-text input files, see lesspipe(1)
