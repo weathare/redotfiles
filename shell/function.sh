@@ -139,7 +139,9 @@ __command_snippets() {
   snip=$({ \
     grep -v "^\s*#" ~/dotfiles/.snippets | grep -v "^\s*$"; \
     git alias | sed -e 's/^\t/git /g'; \
-  } | fzf-tmux --no-sort --reverse | awk '{if($0 ~ /#/)print $1; else if($0 ~ /git/)print $1" "$2; else print $0}')
+  } | fzf-tmux --no-sort --reverse | \
+  awk '{if($0 ~ /#/)print substr($0, 0, index($0, "#")-1); else if($0 ~ /git/)print $1" "$2; else print $0}' | \
+  sed -e 's/[   ]*$//g')
   if [ -n '$snip' ] ; then
     builtin bind '"\er": clear-screen'
     builtin bind '"\e^": magic-space'

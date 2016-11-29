@@ -1,50 +1,49 @@
-cd         # enhancd::run
-mcd        # mkdir -p $1 && cd $1
-md         # mkdir -p
-rm         # rm -i
-grep       # grep --color
+cd              # enhancd::run
+mcd             # mkdir -p $1 && cd $1
+md              # mkdir -p
+rm              # rm -i
+grep            # grep --color
 
-# git
-gti        # alias git
-fad        # git add | fzf
-fbr        # git branch --all | grep -v HEAD | fzf | git checkout  $target
-fco        # git tag | git branch --all | fzf | git checkout $target
-fshow      # git log master..$current_branch | fzf
+gti             # alias git
+fad             # git add | fzf
+fbr             # git branch --all | grep -v HEAD | fzf | git checkout  $target
+fco             # git tag | git branch --all | fzf | git checkout $target
+fshow           # git log master..$current_branch | fzf
 
 # control go(git) package
-fcd        # gch -l | fzf
-frepo      # ghq lis | fzf && cd $GHQ_ROOT/$target
-ghq-update # ghq list | sed | xargs ghq get -u
+fcd             # gch -l | fzf
+frepo           # ghq lis | fzf && cd $GHQ_ROOT/$target
+ghq-update      # ghq list | sed | xargs ghq get -u
 
 # apt
-sudo apt-get install -y `apt-cache search . | fzf -m | awk -v ORS=' ' '{print $1}; END{print "\n"}'`
-sudo apt-get purge -y `dpkg -l | fzf -m | awk -v ORS=' ' '{print $2}; END{print "\n"}'`
-apt-cache search . | fzf
-apt-cache policy `apt-cache search . | fzf | awk '{print $1}'`
-dpkg -L `dpkg -l | fzf | awk '{print $2}'` | more
+sudo apt-get install -y `apt-cache search . | fzf -m | awk -v ORS=' ' '{print $1}; END{print "\n"}'` # install
+sudo apt-get purge -y `dpkg -l | fzf -m | awk -v ORS=' ' '{print $2}; END{print "\n"}'`              # remove
+apt-cache search . | fzf                                                                             # display installable package
+apt-cache policy `apt-cache search . | fzf | awk '{print $1}'`                                       # display installable version
+dpkg -L `dpkg -l | fzf | awk '{print $2}'` | more                                                    # display installed package
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get autoremove && sudo apt-get clean
 
 # directory
-l          # ls -CF
-la         # ls -A
-ll         # ls -lFh
-lla        # ls ls -alh
-ls         # ls --color=auto
-cls        # clear && ls -F
+l               # ls -CF
+la              # ls -A
+ll              # ls -lFh
+lla             # ls ls -alh
+ls              # ls --color=auto
+cls             # clear && ls -F
 
 # make
-m          # make
-make       # clear && make
-smi        # sudo make install
+m               # make
+make            # clear && make
+smi             # sudo make install
 
 # system
-off        # sudo shutdown -r now
-reboot     # sudo shutdown -r now
-reload     # source ~/.bashrc
-h          # history
-keys       # ssh-add -l
-extract    # enhance unpack archived files.
+off             # sudo shutdown -r now
+reboot          # sudo shutdown -r now
+reload          # source ~/.bashrc
+h               # history
+keys            # ssh-add -l
+extract         # enhance unpack archived files.
 date +%Y%m%d
 date +%Y-%m-%dT%T%:z
 
@@ -53,23 +52,25 @@ lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
 lsof -c ruby
 
 # resource
-dstat -Tclmdrn
-dstat -Tclm
-dstat -Tclr
-dstat -Tclnd
-dstat -Tcldr
+dstat -Tclmdrn  # dstat full
+dstat -Tclm     # dstat memory
+dstat -Tclr     # dstat cpu
+dstat -Tclnd    # dstat net
+dstat -Tcldr    # dstat disk
 
 # ps
 peco-kill  # ps aux | awk '{print $2}' | kill $pid
 psg        # ps auwwx | grep $1
 
 # development
-ruby-new   # rbenv install -l | grep -v - | tail -1
+rbenv install -l | grep -v - | tail -1 # newer installable ruby version
+pyenv install -l | grep -v - | tail -1 # newer installable python version
+nodebrew ls-remote | hw -e "^v[0-9]" | tail -1 # newer installable nodejs version
 
 # tmux
 tmux       # tmux -2
-tmux new -s
-tmux a -t
+tmux new -s # tmux session start
+tmux a -t # tmux session attach
 
 # edit
 vi         # nvim
