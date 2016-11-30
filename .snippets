@@ -45,6 +45,7 @@ h               # history
 keys            # ssh-add -l
 extract         # enhance unpack archived files.
 date +%Y%m%d
+date +%Y%m%d%H%M%S
 date +%Y-%m-%dT%T%:z
 
 # searach
@@ -52,15 +53,15 @@ lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
 lsof -c ruby
 
 # resource
-dstat -Tclmdrn  # dstat full
-dstat -Tclm     # dstat memory
-dstat -Tclr     # dstat cpu
-dstat -Tclnd    # dstat net
-dstat -Tcldr    # dstat disk
+dstat -Tclmdrn # dstat full
+dstat -Tclm    # dstat memory
+dstat -Tclr    # dstat cpu
+dstat -Tclnd   # dstat net
+dstat -Tcldr   # dstat disk
 
 # ps
-peco-kill  # ps aux | awk '{print $2}' | kill $pid
-psg        # ps auwwx | grep $1
+peco-kill      # ps aux | awk '{print $2}' | kill $pid
+psg            # ps auwwx | grep $1
 
 # development
 rbenv install -l | grep -v - | tail -1                                       # newer installable ruby version
@@ -70,13 +71,13 @@ pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U # u
 nodebrew ls-remote | hw -e "^v[0-9]" | tail -1                               # newer installable nodejs version
 
 # tmux
-tmux       # tmux -2
-tmux new -s # tmux session start
-tmux a -t # tmux session attach
+tmux           # tmux -2
+tmux new -s    # tmux session start
+tmux a -t      # tmux session attach
 
 # edit
-vi         # nvim
-less       # /.linuxbrew/share/nvim/runtime/macros/less.sh
+vi             # nvim
+less           # /.linuxbrew/share/nvim/runtime/macros/less.sh
 
 # postgresql
 psql -U postgres -h localhost
