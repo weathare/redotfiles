@@ -195,9 +195,9 @@ hook_add = '''
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 '''
 
-[[plugins]]
-if = 'has("ruby")'
-repo = 'todesking/ruby_hl_lvar.vim'
+# [[plugins]]
+# if = 'has("ruby")'
+# repo = 'todesking/ruby_hl_lvar.vim'
 
 [[plugins]]
 if = 'has("ruby")'
