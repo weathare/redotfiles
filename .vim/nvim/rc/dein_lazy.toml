@@ -44,7 +44,7 @@ repo = 'Shougo/deoplete.nvim'
 if = 'has("python3")'
 depends = 'context_filetype.vim'
 hook_source = 'source ~/.vim/nvim/rc/complete.rc.vim'
-hook_post_source = 'call deoplete#enable()'
+# hook_post_source = 'call deoplete#enable()'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'

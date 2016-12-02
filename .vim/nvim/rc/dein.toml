@@ -191,6 +191,7 @@ nnoremap ,rc :RunSpecCloseResult<CR>
 
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
+on_ft = ['rb', 'eruby']
 hook_add = '''
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 '''
