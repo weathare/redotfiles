@@ -40,7 +40,7 @@ set formatoptions=crMmoql
 " 不可視文字を表示
 set list
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<
-highlight SpecialKey term=underline ctermfg=darkgray guifg=darkgray
+highlight SpecialKey term=underline ctermfg=237 guifg=darkgray
 
 
 " 開始メッセージを表示しない
