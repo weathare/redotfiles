@@ -23,7 +23,7 @@
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\t\\1\\\t => \\2/' | sort
   me = !git config --get-regexp user
   p = push
-  st = status --short --branch
+  st = status --short --branch -u
   sh = show
   so = remote show origin
   ft = fetch

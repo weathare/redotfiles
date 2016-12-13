@@ -51,16 +51,16 @@ alias frepo='frepo'
 # gch + fzf: 作業中のGOPATHへ移動
 fcd() {
   local dir
-  dir=$(gch -l | fzf-tmux --reverse | awk '{print $1}') && cd $dir && git status --short --branch
+  dir=$(gch -l | fzf-tmux --reverse | awk '{print $1}') && cd $dir && git status --short --branch -u
 }
 alias fcd='fcd'
 
 # git add + fzf: git add支援
 fad() {
   local addfiles
-  addfiles=$(git status --short | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
+  addfiles=$(git status --short --branch -u | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
   if [[ -n $addfiles ]]; then
-    git add $addfiles && git status --short --branch
+    git add $addfiles && git status --short --branch -u
   else
     echo "nothing added."
   fi
