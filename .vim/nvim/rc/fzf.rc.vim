@@ -2,7 +2,7 @@ function! s:escape(path)
   return substitute(a:path, ' ', '\\ ', 'g')
 endfunction
 
-function! PtHandler(line)
+function! HwHandler(line)
   let parts = split(a:line, ':')
   let [fn, lno] = parts[0 : 1]
   execute 'e '. s:escape(fn)
@@ -11,8 +11,8 @@ function! PtHandler(line)
 endfunction
 
 command! -nargs=+ Fpt call fzf#run({
-  \ 'source': 'pt --color --nogroup --column "<args>"',
-  \ 'sink': function('PtHandler'),
+  \ 'source': 'hw --no-group --no-color "<args>"',
+  \ 'sink': function('HwHandler'),
   \ 'options': '+m',
   \ 'tmux_height': '50%'
   \ })

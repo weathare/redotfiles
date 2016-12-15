@@ -2,8 +2,7 @@ let g:unite_enable_start_insert         = 1
 let g:unite_source_history_yank_enable  = 1
 let g:unite_source_grep_max_candidates  = 200
 
-call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
-call unite#set_profile('default', 'context', {'ignorecase':1})
+" call unite#set_profile('default', 'context', {'ignorecase':1})
 " call unite#custom#source( 'buffer', 'converters', ['converter_file_directory'])
 
 nnoremap  [unite]   <Nop>
@@ -17,8 +16,8 @@ nnoremap  <silent>  [unite]r  :<C-u>Unite -buffer-name=register register<CR>
 " ヒストリ/ヤンクを表示
 nnoremap  <silent>  [unite]h  :<C-u>Unite<Space>history/yank<CR>
 " ブックマーク
-nnoremap  <silent>  [unite]b  :<C-u>Unite<Space>bookmark<CR>
-call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
+" nnoremap  <silent>  [unite]b  :<C-u>Unite<Space>bookmark<CR>
+" call unite#custom_default_action(expand('$CACHE/unite/bookmark'), 'vimfiler')
 " ブックマーク追加
 nnoremap  <F11> :UniteBookmarkAdd
 

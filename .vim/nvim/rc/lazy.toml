@@ -1,0 +1,195 @@
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_if = 1
+on_source = ['unite.vim', 'denite.nvim']
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+hook_source = 'source ~/.vim/nvim/rc/unite.rc.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+on_source = ['unite.vim', 'vimshell.vim']
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+on_source = 'denite.nvim'
+hook_source = 'source ~/.vim/nvim/rc/unite.rc.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+on_i = 1
+hook_source = 'source ~/.vim/nvim/rc/deoplete.rc.vim'
+
+[[plugins]]
+repo = "Shougo/denite.nvim"
+depends = 'neomru.vim'
+on_event = 'BufRead'
+hook_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
+hook_add = '''
+nnoremap  [denite]  <Nop>
+nmap      <Space>t  [denite]
+nnoremap  <silent>  [denite]a :<C-u>DeniteBufferDir -buffer-name=files file<CR>
+nnoremap  <silent>  [denite]f :<C-u>Denite -start-insert buffer file_mru directory_mru<CR>
+nnoremap  <silent>  [denite]n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
+nnoremap  <silent>  [denite]o :<C-u>Denite unite:outline<CR>
+nnoremap  <silent>  [denite]r :<C-u>Denite -buffer-name=register register<CR>
+'''
+
+#======================================
+# Lang
+#
+[[plugins]]
+repo = 'rhysd/github-complete.vim'
+on_ft = ['markdown', 'gitcommit']
+hook_add = '''
+let g:thub_complete_emoji_japanese_workaround = 1
+'''
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 0
+
+au FileType go nmap ,gr <Plug>(go-run)
+au FileType go nmap ,gb <Plug>(go-build)
+au FileType go nmap ,gs <Plug>(go-test)
+au FileType go nmap ,gc <Plug>(go-coverage)
+'''
+
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+build = 'make'
+on_i = 1
+on_ft = 'go'
+
+[[plugins]]
+repo = 'scrooloose/syntastic'
+on_i = 1
+hook_add = '''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+    \ 'mode': 'passive',
+    \ 'active_filetypes': ['go'],
+    \ 'passive_filetypes': ['ruby'],
+    \ }
+let g:syntastic_ruby_checkers = ['rubocop']
+
+nnoremap <Leader>sc :SyntasticCheck<CR>
+nnoremap <Leader>st :SyntasticToggleMode<CR>
+'''
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+
+[[plugins]]
+repo = 'basyura/unite-rails'
+
+[[plugins]]
+repo = 'itmammoth/run-rspec.vim'
+on_ft = "rb"
+hook_add = '''
+nnoremap ,rs :RunSpec<CR>
+nnoremap ,rl :RunSpecLine<CR>
+nnoremap ,re :RunSpecLastRun<CR>
+nnoremap ,rc :RunSpecCloseResult<CR>
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = ['rb', 'eruby']
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+'''
+
+[[plugins]]
+if = 'has("ruby")'
+repo = 'fishbullet/deoplete-ruby'
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = 'slim'
+hook_add = '''
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+'''
+
+[[plugins]]
+repo = 'tpope/vim-haml'
+on_ft = 'haml'
+hook_add = '''
+autocmd BufNewFile,BufRead *.haml setlocal filetype=haml
+'''
+
+[[plugins]]
+repo = 'AtsushiM/sass-compile.vim'
+on_ft = 'css'
+depends = 'search-parent.vim'
+hook_add = '''
+let g:sass_complite_auto = 0
+let g:sass_complite_file = ['sass', 'scss']
+let g:sass_complite_dir = ['css', 'stylesheets']
+'''
+
+[[plugins]]
+repo = 'AtsushiM/search-parent.vim'
+
+[[plugins]]
+repo = 'stephenway/postcss.vim'
+on_ft = 'css'
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+build = 'npm install -g tern'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascript', 'javascript.jsx']
+

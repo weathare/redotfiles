@@ -1,34 +1,21 @@
 " -------------------------------------
 " Snippet:
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 let g:neosnippet#enable_completed_snippet = 1
-let g:neosnippet#snippets_directory = []
-let g:neosnippet#snippets_directory += [
+let g:neosnippet#snippets_directory = [
       \ '~/.vim/snippets',
-      \ '~/.vim/dein/repos/github.com/hfm/itamae-snippets/'
+      \ '~/.vim/dein/repos/github.com/hfm/itamae-snippets/',
+      \ '~/.vim/dein/repos/github.con/Shougo/neosnippet-snippets/neosnippets'
       \ ]
 
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
-imap <expr><TAB> <SID>neosnippet_complete()
-smap <expr><TAB> <SID>neosnippet_complete()
 
-function! s:neosnippet_complete()
-  if pumvisible()
-    return "\<C-n>"
-  else
-    if neosnippet#expandable_or_jumpable() 
-      return "\<Plug>(neosnippet_expand_or_jump)"
-    endif
-    return "\<TAB>"
-  endif
-endfunction
-
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 
 augroup MyAutoCmd
   autocmd BufEnter,BufRead,BufNew app/views/*             NeoSnippetSource ~/.vim/snippets/ruby.rails.view.snip

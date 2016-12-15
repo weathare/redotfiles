@@ -22,8 +22,10 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  let s:toml      = s:rc_dir . '/dein.toml'
-  let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
+  " let s:toml      = s:rc_dir . '/dein.toml'
+  " let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
+  let s:toml      = s:rc_dir . '/plugins.toml'
+  let s:toml_lazy = s:rc_dir . '/lazy.toml'
 
   call dein#load_toml(s:toml,       {'lazy': 0})
   call dein#load_toml(s:toml_lazy,  {'lazy': 1})

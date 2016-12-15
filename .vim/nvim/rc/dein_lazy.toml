@@ -44,7 +44,6 @@ repo = 'Shougo/deoplete.nvim'
 if = 'has("python3")'
 depends = 'context_filetype.vim'
 hook_source = 'source ~/.vim/nvim/rc/complete.rc.vim'
-# hook_post_source = 'call deoplete#enable()'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -52,8 +51,51 @@ on_if = 1
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
-on_i = 1
+on_event = 'InsertCharPre'
 on_ft = 'snippet'
-depends = 'neosnippet-snippets'
 hook_source = 'source ~/.vim/nvim/rc/snippet.rc.vim'
+
+# markdown ============================
+[[plugins]]
+repo = 'rhysd/github-complete.vim'
+on_ft = ['markdown', 'gitcommit']
+hook_add = '''
+let g:thub_complete_emoji_japanese_workaround = 1
+'''
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+on_ft = 'markdown'
+
+# css =================================
+[[plugins]]
+repo = 'AtsushiM/sass-compile.vim'
+on_ft = 'css'
+depends = 'search-parent.vim'
+hook_add = '''
+let g:sass_complite_auto = 0
+let g:sass_complite_file = ['sass', 'scss']
+let g:sass_complite_dir = ['css', 'stylesheets']
+'''
+
+[[plugins]]
+repo = 'AtsushiM/search-parent.vim'
+
+[[plugins]]
+repo = 'stephenway/postcss.vim'
+on_ft = 'css'
+
+# javascript ==========================
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+build = 'npm install -g tern'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascript', 'javascript.jsx']
 
