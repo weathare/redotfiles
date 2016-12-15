@@ -49,8 +49,8 @@ date +%Y%m%d%H%M%S
 date +%Y-%m-%dT%T%:z
 
 # searach
-lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
-lsof -c ruby
+sudo lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
+sudo lsof -c ruby
 
 # resource
 dstat -Tclmdrn # dstat full
