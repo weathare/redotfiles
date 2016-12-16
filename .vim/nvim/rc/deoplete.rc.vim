@@ -17,6 +17,6 @@ let g:deoplete#sources#go#json_directory = expand('$GOPATH/data/json/1.7.4/linux
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
 
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-j>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-k>" : "\<S-TAB>"
 

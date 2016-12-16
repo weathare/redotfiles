@@ -1,3 +1,6 @@
+#======================================
+# Utility
+#
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -5,7 +8,7 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/vimshell.vim'
 
 [[plugins]]
-repo = 'tpope/vim-obsession'
+repo = 'mattn/webapi-vim'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -16,6 +19,28 @@ hook_source = 'source ~/.vim/nvim/rc/vimfiler.rc.vim'
 repo = 'junegunn/fzf'
 depends = 'fzf'
 hook_source = 'source ~/.vim/nvim/rc/fzf.rc.vim'
+
+repo = 'tsuyoshiwada/slack-memo-vim'
+depends = 'mattn/webapi-vim'
+hook_source = '''
+if filereadable(expand('$HOME/.slack_memo_profile'))
+  source $HOME/.slack_memo_profile
+endif
+'''
+hook_add = '''
+let g:slack_memo_bot_username = 'weathare'
+let g:slack_memo_bot_icon_emoji = ':alien:'
+nnoremap sme :split enew<CR>
+nnoremap smp :SlackMemoPost<CR>
+nnoremap sml :SlackMemoList<CR>
+'''
+
+[[plugins]]
+repo = 'mattn/gist-vim'
+depends = 'mattn/webapi-vim'
+hook_add = '''
+let g:github_user = "weathare"
+'''
 
 #=======================================
 # Color
@@ -65,16 +90,6 @@ function! g:committia_hooks.edit_open(info)
 endfunction
 '''
 
-[[plugins]]
-repo = 'mattn/gist-vim'
-depends = 'mattn/webapi-vim'
-hook_add = '''
-let g:github_user = "weathare"
-'''
-
-[[plugins]]
-repo = 'mattn/webapi-vim'
-
 #======================================
 # Helper
 #
@@ -119,4 +134,3 @@ hook_add = '''
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 '''
-

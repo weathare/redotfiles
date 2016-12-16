@@ -11,12 +11,6 @@ let g:neosnippet#snippets_directory = [
       \ '~/.vim/dein/repos/github.con/Shougo/neosnippet-snippets/neosnippets'
       \ ]
 
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-
-
 augroup MyAutoCmd
   autocmd BufEnter,BufRead,BufNew app/views/*             NeoSnippetSource ~/.vim/snippets/ruby.rails.view.snip
   autocmd BufEnter,BufRead,BufNew app/controllers/**/*.rb NeoSnippetSource ~/.vim/snippets/ruby.rails.controller.snip

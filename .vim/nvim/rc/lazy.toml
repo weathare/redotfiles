@@ -42,16 +42,16 @@ hook_source = 'source ~/.vim/nvim/rc/deoplete.rc.vim'
 [[plugins]]
 repo = "Shougo/denite.nvim"
 depends = 'neomru.vim'
-on_event = 'BufRead'
+on_cmd = 'Denite'
 hook_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
 hook_add = '''
 nnoremap  [denite]  <Nop>
-nmap      <Space>t  [denite]
-nnoremap  <silent>  [denite]a :<C-u>DeniteBufferDir -buffer-name=files file<CR>
-nnoremap  <silent>  [denite]f :<C-u>Denite -start-insert buffer file_mru directory_mru<CR>
-nnoremap  <silent>  [denite]n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
-nnoremap  <silent>  [denite]o :<C-u>Denite unite:outline<CR>
-nnoremap  <silent>  [denite]r :<C-u>Denite -buffer-name=register register<CR>
+nmap      <Leader>n [denite]
+nnoremap  [denite]a :<C-u>Denite buffer file_mru directory_rec<CR>
+nnoremap  [denite]f :<C-u>DeniteProjectDir file_mru directory_rec<CR>
+nnoremap  [denite]h :<C-u>Denite register unite:register neoyank<CR>
+nnoremap  [denite]o :<C-u>Denite unite:outline<CR>
+nnoremap  [denite]t :<C-u>Denite filetype<CR>
 '''
 
 #======================================
@@ -117,6 +117,8 @@ let g:syntastic_mode_map = {
     \ 'passive_filetypes': ['ruby'],
     \ }
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_css_checkers = ['stylint']
+let g:syntastic_stylus_checkers = ['stylint']
 
 nnoremap <Leader>sc :SyntasticCheck<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
@@ -192,4 +194,7 @@ on_ft = ['javascript', 'javascript.jsx']
 [[plugins]]
 repo = 'MaxMEllon/vim-jsx-pretty'
 on_ft = ['javascript', 'javascript.jsx']
+hook_source = '''
+autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx
+'''
 
