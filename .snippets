@@ -4,11 +4,12 @@ md              # mkdir -p
 rm              # rm -i
 grep            # grep --color
 
-gti             # alias git
-fad             # git add | fzf
-fbr             # git branch --all | grep -v HEAD | fzf | git checkout  $target
-fco             # git tag | git branch --all | fzf | git checkout $target
-fshow           # git log master..$current_branch | fzf
+gti                              # alias git
+git push origin :<remote_branch> # delete remote branch
+fad                              # git add | fzf
+fbr                              # git branch --all | grep -v HEAD | fzf | git checkout  $target
+fco                              # git tag | git branch --all | fzf | git checkout $target
+fshow                            # git log master..$current_branch | fzf
 
 # control go(git) package
 fcd             # gch -l | fzf
