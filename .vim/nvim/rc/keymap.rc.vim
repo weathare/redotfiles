@@ -24,7 +24,7 @@ nnoremap eK <C-w>K
 nnoremap eL <C-w>L
 nnoremap eH <C-w>H
 nnoremap eq :<C-u>q<CR>   " ウィンドウを閉じる
-nnoremap eQ :<C-u>bq<CR>  " バッファを閉じる
+nnoremap eQ :<C-u>bd!<CR> " バッファを閉じる
 
 " insertモードを抜ける
 inoremap <silent> jj <ESC>
