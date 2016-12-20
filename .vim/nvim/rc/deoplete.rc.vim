@@ -6,6 +6,8 @@ let g:deoplete#enable_camel_case = 1
 
 let g:deoplete#sources#omni#input_patterns = {}
 let g:deoplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:deoplete#sources = {}
+let g:deoplete#sources.gitcommit = ['github']
 
 " go
 let g:deoplete#sources#go#gocode_binary = expand('$GOPATH/bin/gocode')
@@ -22,6 +24,14 @@ let g:tern#filetypes = [
       \ 'jsx',
       \ 'vue'
       \ ]
+
+" github
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns.gitcommit = '.+'
+call deoplete#util#set_pattern(
+  \ g:deoplete#omni#input_patterns,
+  \ 'gitcommit', [g:deoplete#keyword_patterns.gitcommit]
+  \ )
 
 inoremap <expr><TAB> pumvisible() ? "\<C-j>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<S-TAB>"

@@ -212,3 +212,7 @@ on_ft = 'vim'
 [[plugins]]
 repo = 'Shougo/neco-syntax'
 on_ft = 'vim'
+
+[[plugins]]
+repo = 'SevereOverfl0w/deoplete-github'
+depends = ['deoplete.nvim', 'vim-fugitive', 'vim-rhubarb']
