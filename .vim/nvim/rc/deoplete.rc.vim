@@ -21,8 +21,10 @@ let g:tern#filetypes = [
       \ 'javascript.jsx',
       \ 'jsx',
       \ 'vue'
-]
+      \ ]
 
-inoremap <expr><TAB>  pumvisible() ? "\<C-j>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-k>" : "\<S-TAB>"
+inoremap <expr><TAB> pumvisible() ? "\<C-j>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-k>" : "\<S-TAB>"
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 

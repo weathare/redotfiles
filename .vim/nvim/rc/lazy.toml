@@ -42,15 +42,14 @@ hook_source = 'source ~/.vim/nvim/rc/deoplete.rc.vim'
 [[plugins]]
 repo = "Shougo/denite.nvim"
 depends = 'neomru.vim'
-on_cmd = 'Denite'
 hook_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
 hook_add = '''
 nnoremap  [denite]  <Nop>
 nmap      <Leader>n [denite]
 nnoremap  [denite]a :<C-u>Denite buffer file_mru directory_rec<CR>
 nnoremap  [denite]f :<C-u>DeniteProjectDir file_mru directory_rec<CR>
-nnoremap  [denite]h :<C-u>Denite register unite:register neoyank<CR>
-nnoremap  [denite]o :<C-u>Denite unite:outline<CR>
+nnoremap  [denite]h :<C-u>Denite -buffer-name=yank register unite:register neoyank<CR>
+nnoremap  [denite]o :<C-u>Denite -buffer-name=outline unite:outline<CR>
 nnoremap  [denite]t :<C-u>Denite filetype<CR>
 '''
 
