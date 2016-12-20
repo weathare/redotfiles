@@ -15,7 +15,13 @@ let g:deoplete#sources#go#json_directory = expand('$GOPATH/data/json/1.7.4/linux
 
 " ternjs
 let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'
+let g:tern_show_signature_in_pum = 1
+let g:tern#filetypes = [
+      \ 'javascript',
+      \ 'javascript.jsx',
+      \ 'jsx',
+      \ 'vue'
+]
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-j>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-k>" : "\<S-TAB>"

@@ -54,3 +54,162 @@ nnoremap  [denite]o :<C-u>Denite unite:outline<CR>
 nnoremap  [denite]t :<C-u>Denite filetype<CR>
 '''
 
+#======================================
+# Lang
+#
+[[plugins]]
+repo = 'rhysd/github-complete.vim'
+on_ft = ['markdown', 'gitcommit']
+hook_add = '''
+let g:thub_complete_emoji_japanese_workaround = 1
+'''
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+hook_add = '''
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 0
+
+au FileType go nmap ,gr <Plug>(go-run)
+au FileType go nmap ,gb <Plug>(go-build)
+au FileType go nmap ,gs <Plug>(go-test)
+au FileType go nmap ,gc <Plug>(go-coverage)
+'''
+
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+build = 'make'
+on_i = 1
+on_ft = 'go'
+
+[[plugins]]
+repo = 'scrooloose/syntastic'
+on_i = 1
+hook_add = '''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+    \ 'mode': 'passive',
+    \ 'active_filetypes': ['go'],
+    \ 'passive_filetypes': ['ruby'],
+    \ }
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_css_checkers = ['stylint']
+let g:syntastic_stylus_checkers = ['stylint']
+
+nnoremap <Leader>sc :SyntasticCheck<CR>
+nnoremap <Leader>st :SyntasticToggleMode<CR>
+'''
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+depends = 'unite.vim'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'itmammoth/run-rspec.vim'
+on_ft = 'ruby'
+hook_add = '''
+nnoremap ,rs :RunSpec<CR>
+nnoremap ,rl :RunSpecLine<CR>
+nnoremap ,re :RunSpecLastRun<CR>
+'''
+
+[[plugins]]
+repo = 'basyura/unite-rails'
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = ['ruby', 'eruby']
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+'''
+
+[[plugins]]
+if = 'has("ruby")'
+on_ft = 'ruby'
+repo = 'fishbullet/deoplete-ruby'
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = 'slim'
+hook_add = '''
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+'''
+
+[[plugins]]
+repo = 'tpope/vim-haml'
+on_ft = 'haml'
+hook_add = '''
+autocmd BufNewFile,BufRead *.haml setlocal filetype=haml
+'''
+
+[[plugins]]
+repo = 'AtsushiM/sass-compile.vim'
+on_ft = 'css'
+depends = 'search-parent.vim'
+hook_add = '''
+let g:sass_complite_auto = 0
+let g:sass_complite_file = ['sass', 'scss']
+let g:sass_complite_dir = ['css', 'stylesheets']
+'''
+
+[[plugins]]
+repo = 'AtsushiM/search-parent.vim'
+
+[[plugins]]
+repo = 'stephenway/postcss.vim'
+on_ft = 'css'
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+on_ft = ['javascript', 'javascript.jsx']
+build = 'npm install -g tern'
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = ['javascript', 'javascript.jsx']
+hook_source = '''
+let g:vim_jsx_pretty_enable_jsx_highlight = 1
+autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx
+'''
+
+[[plugins]]
+repo = 'millermedeiros/vim-esformatter'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo ='Shougo/neco-vim'
+on_ft = 'vim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+on_ft = 'vim'

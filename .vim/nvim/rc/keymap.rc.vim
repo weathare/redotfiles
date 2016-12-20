@@ -45,5 +45,5 @@ cnoremap deinup :call dein#update()<CR>
 nnoremap Y y$
 
 " lemonade送り
-vmap <C-c> :w !lemonade copy<CR><CR>
-
+vnoremap  <silent> <C-c> :w !lemonade copy<CR><CR>
+vnoremap  <silent> <C-P> !lemonade paste<CR><CR>
