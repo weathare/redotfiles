@@ -42,16 +42,11 @@ hook_source = 'source ~/.vim/nvim/rc/deoplete.rc.vim'
 [[plugins]]
 repo = "Shougo/denite.nvim"
 depends = 'neomru.vim'
-hook_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
-hook_add = '''
-nnoremap  [denite]  <Nop>
-nmap      <Leader>n [denite]
-nnoremap  [denite]a :<C-u>Denite buffer file_mru directory_rec<CR>
-nnoremap  [denite]f :<C-u>DeniteProjectDir file_mru directory_rec<CR>
-nnoremap  [denite]h :<C-u>Denite -buffer-name=yank register unite:register neoyank<CR>
-nnoremap  [denite]o :<C-u>Denite -buffer-name=outline unite:outline<CR>
-nnoremap  [denite]t :<C-u>Denite filetype<CR>
-'''
+on_cmd = [
+  'Denite',
+  'DeniteProjectDir'
+]
+hook_post_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
 
 #======================================
 # Lang
@@ -214,5 +209,14 @@ repo = 'Shougo/neco-syntax'
 on_ft = 'vim'
 
 [[plugins]]
-repo = 'SevereOverfl0w/deoplete-github'
-depends = ['deoplete.nvim', 'vim-fugitive', 'vim-rhubarb']
+repo = 'ujihisa/neco-look'
+on_ft = [
+  'markdown',
+  'gitcommit',
+  'yaml',
+  'ruby',
+  'go',
+  'text',
+  'html',
+  'javascript'
+]

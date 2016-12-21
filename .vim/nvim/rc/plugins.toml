@@ -96,9 +96,6 @@ function! g:committia_hooks.edit_open(info)
 endfunction
 '''
 
-[[plugins]]
-repo = 'tpope/vim-rhubarb'
-
 #======================================
 # Helper
 #
@@ -143,3 +140,6 @@ hook_add = '''
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 '''
+
+[[plugins]]
+repo = 'tpope/vim-endwise'

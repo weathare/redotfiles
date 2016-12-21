@@ -1,7 +1,3 @@
-" call denite#custom#source('file_mru', 'matchers', ['matcher_cpsm', 'matcher_project_files'])
-" call denite#custom#source('file_rec', 'matchers', ['matcher_cpsm'])
-" call denite#custom#source('directory_rec', 'matchers', ['matcher_cpsm'])
-
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
   \ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
   \   'venv/', 'images/', 'img/', 'fonts/'])
@@ -21,3 +17,11 @@ call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', 'jj',    '<denite:enter_mode:normal>')
 call denite#custom#map('insert', '<C-y>', '<denite:do_action:yank>')
 call denite#custom#map('normal', 'y',     '<denite:do_action:yank>')
+
+nnoremap  [denite]  <Nop>
+nmap      <Leader>n [denite]
+nnoremap  [denite]a :<C-u>Denite buffer file_mru directory_rec<CR>
+nnoremap  [denite]f :<C-u>DeniteProjectDir file_mru directory_rec<CR>
+nnoremap  [denite]h :<C-u>Denite -buffer-name=yank register unite:register neoyank<CR>
+nnoremap  [denite]o :<C-u>Denite -buffer-name=outline unite:outline<CR>
+nnoremap  [denite]t :<C-u>Denite filetype<CR>
