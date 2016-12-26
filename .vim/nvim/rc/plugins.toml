@@ -30,7 +30,7 @@ endif
 hook_add = '''
 let g:slack_memo_bot_username = 'weathare'
 let g:slack_memo_bot_icon_emoji = ':vim:'
-nnoremap sme :split enew<CR>:set ft=markdown<CR>gI
+nnoremap sme :split enew<CR>:resize -20<CR>:set ft=markdown<CR>gI
 nnoremap smp :SlackMemoPost<CR>
 nnoremap sml :SlackMemoList<CR>:set modifiable<CR>
 '''
@@ -45,7 +45,7 @@ let g:github_user = "weathare"
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 hook_add = '''
-let g:extra_whitespace_ignored_filetypes = ['unite', 'vimfiler', 'denite']
+let g:extra_whitespace_ignored_filetypes = ['help', 'unite', 'vimfiler', 'denite']
 '''
 
 #=======================================
@@ -133,6 +133,9 @@ vmap  <C-_> <plug>(caw:hatpos:toggle)
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
+hook_add = '''
+let g:AutoPairsMapSpace = 0
+'''
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
