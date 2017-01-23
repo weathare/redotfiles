@@ -77,12 +77,14 @@ tmux new -s    # tmux session start
 tmux a -t      # tmux session attach
 
 # tmux plugin keymap
-prefix + <C-s>    # tmuxセッション状態保存
-prefix + <C-r>    # tmuxセッション状態復元
-prefix + <S-p>    # tmuxカレントペインのロギング開始/終了
-prefix + <A-p>    # tmuxカレントペインのテキストキャプチャ取得
-prefix + <A-S-p>  # tmuxカレントペインの出力履歴全て取得
-prefix + <A-c>    # tmuxカレントペインの出力履歴をクリア
+prefix + <Ctrl-s>       # tmuxセッション状態保存
+prefix + <Ctrl-r>       # tmuxセッション状態復元
+prefix + <Shift-p>      # tmuxカレントペインのロギング開始/終了
+prefix + <Alt-p>        # tmuxカレントペインのテキストキャプチャ取得
+prefix + <Alt-Shift-p>  # tmuxカレントペインの出力履歴全て取得
+prefix + <Alt-c>        # tmuxカレントペインの出力履歴をクリア
+prefix + <Shift-i>      # tmuxプラグインインストール
+prefix + <Shift-u>      # tmuxプラグインアップデート
 
 # edit
 vi             # nvim
