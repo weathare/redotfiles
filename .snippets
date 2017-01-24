@@ -70,6 +70,8 @@ pyenv install -l | grep -v - | tail -1                                       # n
 pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip2 install -U # update python2 packages
 pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U # update python3 packages
 nodebrew ls-remote | hw -e "^v[0-9]" | tail -1                               # newer installable nodejs version
+npm list -g     # nodejs global package list
+npm update -g   # update nodejs global packages
 
 # tmux
 tmux           # tmux -2
