@@ -7,7 +7,7 @@ if !isdirectory(g:vimfiler_data_directory)
 endif
 
 nnoremap <silent> <Leader>fe :<C-u>VimFilerBufferDir -split -simple -winwidth=40 -no-quit<CR>
-nnoremap <silent> <Leader>fi :<C-U>VimFilerBufferDir -quit<CR>
+nnoremap <silent> <Leader>fi :<C-u>VimFilerBufferDir -quit<CR>
 autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 
 au FileType vimfiler nmap <buffer> eq <Plug>(vimfiler_exit)
