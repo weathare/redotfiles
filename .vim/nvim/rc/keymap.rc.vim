@@ -47,3 +47,9 @@ nnoremap Y y$
 " lemonade送り
 vnoremap  <silent> <C-c> :w !lemonade copy<CR><CR>
 vnoremap  <silent> <C-P> !lemonade paste<CR><CR>
+
+" terminalモード
+if has('nvim')
+  " terminalのnormal modeへ変更
+  tnoremap  <silent>  <ESC> <C-\><C-n>
+endif
