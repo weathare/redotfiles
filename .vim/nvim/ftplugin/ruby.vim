@@ -7,3 +7,6 @@ set iskeyword+=@-@,?,!
 abbreviate bir. binding.irb
 abbreviate bip. binding.pry
 
+" watson
+abbreviate todo- [todo] -
+abbreviate xxxx- [xxxx] -
