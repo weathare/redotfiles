@@ -16,9 +16,21 @@ depends = 'unite.vim'
 hook_source = 'source ~/.vim/nvim/rc/vimfiler.rc.vim'
 
 [[plugins]]
+repo = "Shougo/denite.nvim"
+depends = 'neomru.vim'
+on_cmd = [
+  'Denite',
+  'DeniteProjectDir'
+]
+hook_post_source = 'source ~/.vim/nvim/rc/denite.rc.vim'
+
+[[plugins]]
 repo = 'junegunn/fzf'
 depends = 'fzf'
 hook_source = 'source ~/.vim/nvim/rc/fzf.rc.vim'
+
+[[plugins]]
+repo = 'tpope/vim-obsession'
 
 repo = 'tsuyoshiwada/slack-memo-vim'
 depends = 'mattn/webapi-vim'
