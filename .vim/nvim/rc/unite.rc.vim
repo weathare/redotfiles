@@ -105,3 +105,7 @@ au FileType unite imap <silent> <buffer> <ESC><ESC> <ESC>q
 au FileType unite imap <silent> <buffer> <expr> <Leader>fi unite#smart_map('fi', unite#do_action('vimfiler'))
 au FileType unite nmap <silent> <buffer> <expr> <Leader>fi unite#smart_map('fi', unite#do_action('vimfiler'))
 
+" watson
+nnoremap  <silent>  ,w  :<C-u>Unite watson<CR>
+nnoremap  <silent>  ,wd :<C-u>Unite watson/dirty<CR>
+nnoremap  <silent>  ,wc :<C-u>Unite watson/current_file<CR>
