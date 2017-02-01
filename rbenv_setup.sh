@@ -6,7 +6,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 # for development
 # ---------------------------------------
-sudo apt-get install -y build-essential libssl-dev zlib1g-dev libreadline-dev libffi-dev
+sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev
 
 # ruby install with rbenv
 # --------------------------------------
