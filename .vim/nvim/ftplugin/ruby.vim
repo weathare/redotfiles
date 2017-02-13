@@ -9,4 +9,5 @@ abbreviate bip. binding.pry
 
 " watson
 abbreviate todo- [todo] -
-abbreviate xxxx- [xxxx] -
+abbreviate xxx- [xxx] -
+abbreviate fix- [fixme] -
