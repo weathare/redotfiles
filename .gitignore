@@ -9,6 +9,7 @@
 .vim/vimfiler/
 .vim/pgcli/history
 .vim/pgcli/log
+*.tags
 
 # Added from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
 *~
