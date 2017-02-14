@@ -27,6 +27,9 @@ dpkg -L `dpkg -l | fzf | awk '{print $2}'` | more                               
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get autoremove && sudo apt-get clean
 
+# linuxbrew
+brew cleanup -s # remove brew cache
+
 # directory
 l               # ls -CF
 la              # ls -A
