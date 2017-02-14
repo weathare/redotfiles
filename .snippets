@@ -11,6 +11,7 @@ fbr                              # git branch --all | grep -v HEAD | fzf | git c
 fco                              # git tag | git branch --all | fzf | git checkout $target
 fshow                            # git log master..$current_branch | fzf
 git commit --allow-empty -m "make pull-request"
+git stash -u  # stash with unstage file
 
 # control go(git) package
 fcd             # gch -l | fzf
@@ -92,7 +93,6 @@ prefix + <Shift-l>      # tmuxカレントパネルを右方向にリサイズ
 prefix + <Shift-h>      # tmuxカレントパネルを左方向にリサイズ
 prefix + <Shift-k>      # tmuxカレントパネルを上方向にリサイズ
 prefix + <Shift-j>      # tmuxカレントパネルを下方向にリサイズ
-
 
 # edit
 vi             # nvim
