@@ -67,6 +67,18 @@ fad() {
 }
 alias fad='fad'
 
+fdel-branch() {
+  local current branches
+  current=$(git rev-parse --abbrev-ref HEAD)
+  branches=$(git branch --merged master | grep -vE '^\*|master$|"$current"$' | fzf-tmux --multi)
+  if [[ -n $branches ]]; then
+    git branch -d $branches
+  else
+    echo "nothing deleted."
+  fi
+}
+alias fdel-branch='fdel-branch'
+
 # checkout git branch (including remote branches)
 fbr() {
   local branches branch
@@ -154,4 +166,3 @@ __command_snippets() {
 }
 bind -x '"\C-x1": __command_snippets'
 bind '"\C-t": "\C-x1\e^\er"'
-
