@@ -43,7 +43,7 @@ pry
 pry-doc
 activesupport
 neovim
-watron-ruby
+watson-ruby
 
 _GROBAL_
 fi
