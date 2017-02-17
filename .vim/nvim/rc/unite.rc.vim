@@ -95,10 +95,10 @@ nnoremap  <silent>  <Leader>rg  :<C-u>Unite rails/logs<CR>
 nnoremap  <silent>  <Leader>rs  :<C-u>Unite rails/spec<CR>
 " }}}
 
-au FileType unite nmap <silent> <buffer> <expr> es unite#do_action('split')
-au FileType unite imap <silent> <buffer> <expr> es unite#do_action('split')
-au FileType unite nmap <silent> <buffer> <expr> ev unite#do_action('vsplit')
-au FileType unite imap <silent> <buffer> <expr> ev unite#do_action('vsplit')
+" au FileType unite nmap <silent> <buffer> <expr> es unite#do_action('split')
+" au FileType unite imap <silent> <buffer> <expr> es unite#do_action('split')
+" au FileType unite nmap <silent> <buffer> <expr> ev unite#do_action('vsplit')
+" au FileType unite imap <silent> <buffer> <expr> ev unite#do_action('vsplit')
 au FileType unite nmap <silent> <buffer> <ESC><ESC> q
 au FileType unite imap <silent> <buffer> <ESC><ESC> <ESC>q
 

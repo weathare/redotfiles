@@ -158,3 +158,6 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'jgdavey/vim-blockle'
