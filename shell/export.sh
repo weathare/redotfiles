@@ -12,7 +12,7 @@ export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH:"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH:"
 
 # golang
-export GOPATH="$HOME/workspace/go"
+export GOPATH="$HOME/workspace"
 export PATH="$GOPATH/bin:$HOME/.linuxbrew/opt/go/libexec/bin:$PATH"
 
 # perl

@@ -98,5 +98,5 @@
 [http]
   sslVerify = false
 [ghq]
-  root = ~/workspace/go/src
+  root = ~/workspace/src
 
