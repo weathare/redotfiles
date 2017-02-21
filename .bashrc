@@ -13,4 +13,3 @@ source $SHELL_FILES/default.sh
 source $SHELL_FILES/export.sh
 source $SHELL_FILES/function.sh
 source $SHELL_FILES/prompt.sh
-
