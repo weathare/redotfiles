@@ -1,6 +1,7 @@
 .git.local
 .env
 *_
+.watsonr*
 
 # nvim + dein
 .init.vim-rplugin~
