@@ -79,16 +79,6 @@ fdel-branch() {
 }
 alias fdel-branch='fdel-branch'
 
-# checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-alias fbr='fbr'
-
 # checkout git branch/tag + fzf
 fco()
 {
@@ -96,13 +86,13 @@ fco()
   tags=$(
     git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
   branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    git branch --all | grep -v HEAD  | grep -v "origin/master" | 
+    sed "s/.* //"    |
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
     (echo "$tags"; echo "$branches") |
     fzf-tmux -d -- --no-hscroll --ansi +m -d "\t" -n 2) || return
-  git checkout $(echo "$target" | awk '{print $2}')
+  git checkout $(echo "$target" | sed "s#remotes/[^/]*/##" | awk '{print $2}')
 }
 alias fco='fco'
 
