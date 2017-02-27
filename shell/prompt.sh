@@ -14,10 +14,14 @@ fi
 if [ ! -f "$HOME/bin/git-completion.bash" ] ; then
   curl -sL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > "$HOME/bin/git-prompt.sh"
   curl -sL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > "$HOME/bin/git-completion.bash"
-fi
-if [ -f "$HOME/bin/git-completion.bash" ] ; then
   source "$HOME/bin/git-prompt.sh"
   source "$HOME/bin/git-completion.bash"
+fi
+if [ -d "$HOME/.linuxbrew/etc/bash_completion.d" ] ; then
+  source "$HOME/.linuxbrew/etc/bash_completion.d/git-completion.bash"
+  source "$HOME/.linuxbrew/etc/bash_completion.d/git-prompt.sh"
+  source "$HOME/.linuxbrew/etc/bash_completion.d/hub.bash_completion.sh"
+  source "$HOME/.linuxbrew/etc/bash_completion.d/tmux"
   POH='ヾ(｡﹏｡)ﾉﾞ'
   if [ -r "$HOME/bin/git-completion.bash" ] ; then
     PS1='\[\033[0;38;5;111m\]\u@\h\[\033[0;38;5;6m\] \w$(__git_ps1 " (%s)") \n\[\033[00m\]$POH \$ '
