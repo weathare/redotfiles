@@ -4,14 +4,14 @@ md              # mkdir -p
 rm              # rm -i
 grep            # grep --color
 
-gti                              # alias git
-git push origin :<remote_branch> # delete remote branch
-fad                              # git add | fzf
-fdel-branch                      # git branch --merged master
-fco                              # git tag | git branch --all | fzf | git checkout $target
-fshow                            # git log master..$current_branch | fzf
-git commit --allow-empty -m "make pull-request"
-git stash -u  # stash with unstage file
+gti                                             # alias git
+git push origin :<remote_branch>                # delete remote branch
+fad                                             # git add | fzf
+fdel-branch                                     # git branch --merged master
+fco                                             # git tag | git branch --all | fzf | git checkout $target
+fshow                                           # git log master..$current_branch | fzf
+git commit --allow-empty -m "make pull-request" # git empty commit with comment
+find . -name '*.orig' -type f | xargs rm -rf    # remove git backup-files
 
 # control go(git) package
 fcd             # gch -l | fzf
