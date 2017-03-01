@@ -86,7 +86,7 @@
 [color]
   ui = auto
   status = auto
-  diff = true
+  diff = auto
   branch = auto
   interactive = auto
   grep = auto
