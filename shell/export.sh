@@ -24,8 +24,9 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-# nodebrew
-export PATH="$HOME/.nodebrew/current/bin:$PATH"
+# ndenv
+export PATH="$HOME/.ndenv/bin:$PATH"
+eval "$(ndenv init -)"
 
 # neovim
 export XDG_CONFIG_HOME="$HOME/.vim"
