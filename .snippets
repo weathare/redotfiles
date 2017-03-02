@@ -75,8 +75,9 @@ pyenv install -l | grep -v - | tail -1                                       # n
 pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip2 install -U # update python2 packages
 pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U # update python3 packages
 ndenv install -l | grep -v - | tail -1                                       # newer installable nodejs version
-npm list -g     # nodejs global package list
-npm update -g   # update nodejs global packages
+npm list -g      # nodejs global package list
+npm update -g    # update nodejs global packages
+npm config ls -l # nodejs default configs
 
 # tmux
 tmux           # tmux -2
