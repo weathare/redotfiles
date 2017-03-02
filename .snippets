@@ -1,8 +1,8 @@
-cd              # enhancd::run
-mcd             # mkdir -p $1 && cd $1
-md              # mkdir -p
-rm              # rm -i
-grep            # grep --color
+cd                     # enhancd::run
+mcd                    # mkdir -p $1 && cd $1
+md                     # mkdir -p
+rm                     # rm -i
+grep                   # grep --color
 
 gti                                             # alias git
 git push origin :<remote_branch>                # delete remote branch
@@ -14,9 +14,9 @@ git commit --allow-empty -m "make pull-request" # git empty commit with comment
 find . -name '*.orig' -type f | xargs rm -rf    # remove git backup-files
 
 # control go(git) package
-fcd             # gch -l | fzf
-frepo           # ghq lis | fzf && cd $GHQ_ROOT/$target
-ghq-update      # ghq list | sed | xargs ghq get -u
+fcd                    # gch -l | fzf
+frepo                  # ghq lis | fzf && cd $GHQ_ROOT/$target
+ghq-update             # ghq list | sed | xargs ghq get -u
 
 # apt
 sudo apt-get install -y `apt-cache search . | fzf -m | awk -v ORS=' ' '{print $1}; END{print "\n"}'` # install
@@ -28,28 +28,28 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get autoremove && sudo apt-get clean
 
 # linuxbrew
-brew cleanup -s # remove brew cache
+brew cleanup -s        # remove brew cache
 
 # directory
-l               # ls -CF
-la              # ls -A
-ll              # ls -lFh
-lla             # ls ls -alh
-ls              # ls --color=auto
-cls             # clear && ls -F
+l                      # ls -CF
+la                     # ls -A
+ll                     # ls -lFh
+lla                    # ls ls -alh
+ls                     # ls --color=auto
+cls                    # clear && ls -F
 
 # make
-m               # make
-make            # clear && make
-smi             # sudo make install
+m                      # make
+make                   # clear && make
+smi                    # sudo make install
 
 # system
-off             # sudo shutdown -h now
-reboot          # sudo shutdown -r now
-reload          # source ~/.bashrc
-h               # history
-keys            # ssh-add -l
-extract         # enhance unpack archived files.
+off                    # sudo shutdown -h now
+reboot                 # sudo shutdown -r now
+reload                 # source ~/.bashrc
+h                      # history
+keys                   # ssh-add -l
+extract                # enhance unpack archived files.
 date +%Y%m%d
 date +%Y%m%d%H%M%S
 date +%Y-%m-%dT%T%:z
@@ -59,15 +59,15 @@ sudo lsof -i:80,3000,8000,8080,5432,6379 | grep LISTEN
 sudo lsof -c ruby
 
 # resource
-dstat -Tclmdrn # dstat full
-dstat -Tclm    # dstat memory
-dstat -Tclr    # dstat cpu
-dstat -Tclnd   # dstat net
-dstat -Tcldr   # dstat disk
+dstat -Tclmdrn         # dstat full
+dstat -Tclm            # dstat memory
+dstat -Tclr            # dstat cpu
+dstat -Tclnd           # dstat net
+dstat -Tcldr           # dstat disk
 
 # ps
-peco-kill      # ps aux | awk '{print $2}' | kill $pid
-psg            # ps auwwx | grep $1
+peco-kill              # ps aux | awk '{print $2}' | kill $pid
+psg                    # ps auwwx | grep $1
 
 # development
 rbenv install -l | grep -v - | tail -1                                       # newer installable ruby version
@@ -75,14 +75,14 @@ pyenv install -l | grep -v - | tail -1                                       # n
 pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip2 install -U # update python2 packages
 pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U # update python3 packages
 ndenv install -l | grep -v - | tail -1                                       # newer installable nodejs version
-npm list -g      # nodejs global package list
-npm update -g    # update nodejs global packages
-npm config ls -l # nodejs default configs
+npm list -g            # nodejs global package list
+npm update -g          # update nodejs global packages
+npm config ls -l       # nodejs default configs
 
 # tmux
-tmux           # tmux -2
-tmux new -s    # tmux session start
-tmux a -t      # tmux session attach
+tmux                   # tmux -2
+tmux new -s            # tmux session start
+tmux a -t              # tmux session attach
 
 # tmux plugin keymap
 prefix + <Ctrl-s>       # tmuxセッション状態保存
@@ -99,8 +99,8 @@ prefix + <Shift-k>      # tmuxカレントパネルを上方向にリサイズ
 prefix + <Shift-j>      # tmuxカレントパネルを下方向にリサイズ
 
 # edit
-vi             # nvim
-less           # /.linuxbrew/share/nvim/runtime/macros/less.sh
+vi                     # nvim
+less                   # /.linuxbrew/share/nvim/runtime/macros/less.sh
 
 # postgresql
 psql -U postgres -h localhost
