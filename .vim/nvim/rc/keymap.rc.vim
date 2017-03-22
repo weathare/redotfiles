@@ -48,6 +48,9 @@ nnoremap Y y$
 vnoremap  <silent> <C-c> :w !lemonade copy<CR><ESC>
 vnoremap  <silent> <C-P> !lemonade paste<CR><ESC>
 
+" sudo権限で強制保存
+cnoremap  w!! w !sudo tee > /dev/null %<CR>
+
 " terminalモード
 if has('nvim')
   " terminalのnormal modeへ変更
