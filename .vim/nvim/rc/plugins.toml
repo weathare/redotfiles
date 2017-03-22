@@ -60,6 +60,12 @@ hook_add = '''
 let g:extra_whitespace_ignored_filetypes = ['help', 'unite', 'vimfiler', 'denite']
 '''
 
+[[plugins]]
+repo = 'kassio/neoterm'
+if = 'has("nvim")'
+hook_source = 'source ~/.vim/nvim/rc/neoterm.rc.vim'
+
+
 #=======================================
 # Color
 #
