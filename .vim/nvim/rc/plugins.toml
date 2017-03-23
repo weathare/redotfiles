@@ -167,3 +167,9 @@ repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'jgdavey/vim-blockle'
+
+[[plugins]]
+repo = 'neomake/neomake'
+if = 'has("nvim")'
+hook_source = 'source ~/.vim/nvim/rc/neomake.rc.vim'
+
