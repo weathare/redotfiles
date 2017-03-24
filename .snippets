@@ -10,6 +10,7 @@ fad                                             # git add | fzf
 fdel-branch                                     # git branch --merged master
 fco                                             # git tag | git branch --all | fzf | git checkout $target
 fshow                                           # git log master..$current_branch | fzf
+git reset HEAD <files>                          # reset add files
 git commit --allow-empty -m "make pull-request" # git empty commit with comment
 find . -name '*.orig' -type f | xargs rm -rf    # remove git backup-files
 
