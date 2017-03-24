@@ -140,7 +140,7 @@ alias ghq-update='ghq-update'
 __command_snippets() {
   snip=$({ \
     grep -v "^\s*#" ~/dotfiles/.snippets | grep -v "^\s*$"; \
-    git alias | sed -e 's/^\t/git /g'; \
+    git aliases | sed -e 's/^\t/git /g'; \
   } | fzf-tmux --no-sort --reverse | \
   awk '{if($0 ~ /#/)print substr($0, 0, index($0, "#")-1); else if($0 ~ /git/)print $1" "$2; else print $0}' | \
   sed -e 's/[   ]*$//g')

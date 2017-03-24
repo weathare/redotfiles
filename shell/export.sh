@@ -43,3 +43,5 @@ export FZF_DEFAULT_OPTS="
   --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 "
 
+# hub
+eval "$(hub alias -s)"
