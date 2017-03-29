@@ -67,6 +67,17 @@ fad() {
 }
 alias fad='fad'
 
+frevert() {
+  local revertfiles
+  revertfiles=$(git status --short --branch -u | grep -v '##' | awk '{ print $2 }' | fzf-tmux --multi)
+  if [[ -n $revertfiles ]]; then
+    git checkout $revertfiles && git status --short --branch -u
+  else
+    echo "nothing revert."
+  fi
+}
+alias frev='frevert'
+
 fdel-branch() {
   local current branches
   current=$(git rev-parse --abbrev-ref HEAD)
