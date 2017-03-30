@@ -127,6 +127,26 @@ FZF-EOF"
 }
 alias fshow='fshow'
 
+fstash() {
+  local out k reflog
+  out=(
+    $(git stash list --pretty=format:'%C(red)%gd %Creset%gs %>(14)%Cgreen%cr' |
+      fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
+          --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
+          --preview-window=down:50% --reverse \
+          --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --expect=ctrl-o,ctrl-y,ctrl-x))
+  k=${out[0]}
+  reflog=${out[1]}
+  [ -n "$reflog" ] && case "$k" in
+    ctrl-o) git stash pop $reflog ;;
+    ctrl-y) git stash apply $reflog ;;
+    ctrl-x) git stash drop $reflog ;;
+  esac
+}
+alias fstash='fstash'
+
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
   proc=`ps aux | peco`
