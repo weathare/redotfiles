@@ -26,7 +26,8 @@
   st = status --short --branch -u
   sh = show
   so = remote show origin
-  ft = fetch
+  ft = fetch --all
+  pl = pull --all
   up = pull --rebase
   rb = rebase
   rbi = rebase -i
@@ -83,6 +84,12 @@
   pri = "!f() { hub pull-request -i $1 ; }; f"
   ppr = "!f() { git push origin $1 && hub pull-request ; }; f"
   open-list = !hub issue
+# subtree
+  subtree-remote= "!f() { git remote add tree/$1 $2 ;}: f"
+  subtree-add = "!f() { git subtree add --prefix=$1 tree/$1 $2 ; }; f"
+  subtree-push = "!f() { git subtree puth --prefix=$1 tree/$1 $2 ; }; f"
+  subtree-force-push = "!f() { git push tree/$1 `git subtree split --prefix=$1 .`:$2 --force ; }; f"
+  subtree-pull = "!f() { git subtree pull --prefix=$1 tree/$1 $2 ; }; f"
 [color]
   ui = auto
   status = auto
