@@ -13,4 +13,5 @@ command! -nargs=+ Troute :T rails routes | grep <args>
 command! Troutes   :T rails routes
 command! Tdbsreset :T rails db:reset
 command! Tdbmreset :T rails db:migrate:reset
+command! Trailss   :T rails s -b 0.0.0.0
 command! Trbcop    :T rubocop -a %:p
