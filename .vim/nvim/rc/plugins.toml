@@ -55,12 +55,6 @@ let g:github_user = "weathare"
 '''
 
 [[plugins]]
-repo = 'bronson/vim-trailing-whitespace'
-hook_add = '''
-let g:extra_whitespace_ignored_filetypes = ['help', 'unite', 'vimfiler', 'denite']
-'''
-
-[[plugins]]
 repo = 'kassio/neoterm'
 if = 'has("nvim")'
 hook_source = 'source ~/.vim/nvim/rc/neoterm.rc.vim'
@@ -172,11 +166,3 @@ repo = 'jgdavey/vim-blockle'
 repo = 'neomake/neomake'
 if = 'has("nvim")'
 hook_source = 'source ~/.vim/nvim/rc/neomake.rc.vim'
-
-[[plugins]]
-repo = 'szw/vim-tags'
-hook_add = '''
-let g:vim_tags_project_tags_command = "~/.linuxbrew/bin/ctags -f tags -R . 2>/dev/null"
-let g:vim_tags_gems_tags_command = "~/.linuxbrew/bin/ctags -R -f Gemfile.look.tags `bundle show --paths` 2>/dev/null"
-set tags+=tags,Gemfile.look.tags
-'''
