@@ -13,6 +13,7 @@ fshow                                           # git log master..$current_branc
 git reset HEAD <files>                          # reset add files
 git commit --allow-empty -m "make pull-request" # git empty commit with comment
 find . -name '*.orig' -type f | xargs rm -rf    # remove git backup-files
+git ls-files -o --exclude-standard | xargs rm   # remove git unstage-files
 
 # control go(git) package
 fcd                    # gch -l | fzf
@@ -75,6 +76,8 @@ rbenv install -l | grep -v - | tail -1                                       # n
 pyenv install -l | grep -v - | tail -1                                       # newer installable python version
 pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip2 install -U # update python2 packages
 pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U # update python3 packages
+pip freeze > .requirement                                                    # output pip installed package list
+pip install -r .requirement                                                  # install pip package from list
 ndenv install -l | grep -v - | tail -1                                       # newer installable nodejs version
 npm list -g            # nodejs global package list
 npm update -g          # update nodejs global packages
