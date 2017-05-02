@@ -27,7 +27,7 @@
   sh = show
   so = remote show origin
   ft = fetch --all
-  pl = pull --all
+  pl = !git pull --all && git refresh
   up = pull --rebase
   rb = rebase
   rbi = rebase -i
