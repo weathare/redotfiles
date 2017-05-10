@@ -2,8 +2,8 @@ if &compatible
   set nocompatible
 endif
 
-let g:python_host_prog  = expand('$HOME/.pyenv/versions/neovim2/bin/python')
-let g:python3_host_prog = expand('$HOME/.pyenv/versions/neovim3/bin/python')
+let g:python_host_prog  = expand('$HOME/.anyenv/envs/pyenv/versions/neovim2/bin/python')
+let g:python3_host_prog = expand('$HOME/.anyenv/envs/pyenv/versions/neovim3/bin/python')
 let s:dein_dir          = expand('$XDG_CONFIG_HOME/dein')
 let s:dein_repo_dir     = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
 let s:rc_dir            = expand('$XDG_CONFIG_HOME/nvim/rc')
