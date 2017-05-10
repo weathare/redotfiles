@@ -2,9 +2,9 @@
 export EDITOR=nvim
 export VISUAL=nvim
 
-# rbenv
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
+# anyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
 
 # linux brew
 export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
@@ -17,16 +17,6 @@ export PATH="$GOPATH/bin:$HOME/.linuxbrew/opt/go/libexec/bin:$PATH"
 
 # perl
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-
-# ndenv
-export PATH="$HOME/.ndenv/bin:$PATH"
-eval "$(ndenv init -)"
 
 # neovim
 export XDG_CONFIG_HOME="$HOME/.vim"
@@ -45,3 +35,6 @@ export FZF_DEFAULT_OPTS="
 
 # hub
 eval "$(hub alias -s)"
+
+# rust cargo
+export PATH="$HOME/.cargo/bin:$PATH"
