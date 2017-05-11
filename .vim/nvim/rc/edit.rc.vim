@@ -59,3 +59,5 @@ endif
 
 set formatexpr=autofmt#japanese#formatexpr()
 
+" マウス
+set mouse=a
