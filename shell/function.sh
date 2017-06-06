@@ -107,6 +107,17 @@ fco()
 }
 alias fco='fco'
 
+fpr() {
+  local current target
+  current=$(git rev-parse --abbrev-ref HEAD)
+  target=$(
+    git branch --merged | grep -v master |
+    fzf-tmux -d --sort --ansi |
+    sed "s/.* //") || return
+  git push origin $target && hub pull-request
+}
+alias fpr='fpr'
+
 fshow() {
   local current branch
   current=$(git rev-parse --abbrev-ref HEAD)
@@ -146,6 +157,7 @@ fstash() {
   esac
 }
 alias fstash='fstash'
+
 
 # ps + peco: 実行中プロセスを殺します
 peco-kill() {
