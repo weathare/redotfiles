@@ -55,6 +55,13 @@ let g:github_user = "weathare"
 '''
 
 [[plugins]]
+repo = 'upamune/esa.vim'
+depends = 'mattn/webapi-vim'
+hook_add = '''
+let g:esa_team = "neweathare"
+'''
+
+[[plugins]]
 repo = 'kassio/neoterm'
 if = 'has("nvim")'
 hook_source = 'source ~/.vim/nvim/rc/neoterm.rc.vim'
